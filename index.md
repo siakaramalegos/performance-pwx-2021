@@ -230,48 +230,6 @@ _Self-run data sent to your backend or analytics tool_
 
 ---
 
-# More tools in the toolbox
-
----
-
-## Test My Site
-
-<img class="nooutline" width="150px" src="./images/tool-testmysite.svg" alt="Test My Site" >
-
-- Snazzy-looking and gives pretty pdf
-- High-level data from WebPageTest and PageSpeed Insights
-- Good for the speed scorecard and impact calculator
-
----
-
-## RespImageLint
-
-[RespImageLint](https://github.com/ausi/respimagelint) is a bookmarklet linter for responsive images.
-
-<img src="./images/RespImageLint.png" alt="Screenshot of RespImageLint feedback saying multiple images for different screen sizes needed" style="border:none;box-shadow:none;">
-
-Note: Lighthouse audits also does this better now, but I still like this quick tool and the prescriptive suggestions.
-
----
-
-## Bundle Analyzers
-
-- Several webpack tools exist - check out options on [SurviveJS](https://survivejs.com/webpack/optimizing/build-analysis/)
-- One of my favorites: `webpack-bundle-analyzer`
-
-<img src="./images/webpack_bundle_analyzer.gif" alt="Webpack bundle analyzer in action showing marimekko chart of dependencies based on size" width="80%">
-
----
-
-## MOAR Tools
-
-- Dev Tools Coverage analyzer
-- [Performance Budget Calculator](https://perf-budget-calculator.firebaseapp.com/)
-- [Bundlephobia](https://bundlephobia.com/)
-- [Cloudinary Website Speed Test Image Analysis Tool](https://webspeedtest.cloudinary.com/)
-
----
-
 # 📈 Metrics 📈
 
 ---
@@ -288,46 +246,6 @@ Note: Lighthouse audits also does this better now, but I still like this quick t
 
 ---
 
-## When can I see the page?
-
-- Speed index measures how quickly the page contents are visually populated, but it's not simple<!-- .element: class="fragment fade-in-then-semi-out" -->
-- Largest contentful paint measures when the largest image or text paint in the viewport occurs<!-- .element: class="fragment fade-in" -->
-  - Elements removed from the DOM are invalidated (splash screens)<!-- .element: class="fragment fade-in" -->
-  - Will have a larger weight in Lighthouse<!-- .element: class="fragment fade-in" -->
-
-<small>[Largest Contentful Paint (LCP)](https://web.dev/lcp/), [Speed Index](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/metrics/speed-index)</small>
-
----
-
-## When can I interact with the page?
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Lx1cYJAVnzA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
-<small>End to End Apps with Polymer by Kevin Schaaf, Polymer Summit 2017</small>
-
----
-
-## When can I interact with the page?
-
-- Time to Interactive (TTI) measures how long it takes a page to become fully interactive<!-- .element: class="fragment fade-in-then-semi-out" -->
-- Total blocking time (TBT) measures the time between First Contentful Paint (FCP) and TTI where the main thread was blocked for long enough to prevent input responsiveness.<!-- .element: class="fragment fade-in-then-semi-out" -->
-- TBT will have a larger weight in Lighthouse.<!-- .element: class="fragment fade-in-then-semi-out" -->
-- Large blocks of scripting on the main thread makes both worse.<!-- .element: class="fragment fade-in-then-semi-out" -->
-
-<small>[How does TBT relate to TTI?](https://web.dev/tbt/#how-does-tbt-relate-to-tti)</small>
-
-Note: the point at which layout has stabilized, key webfonts are visible, and the main thread is available enough to handle user input within 50ms. The main thread is considered "blocked" any time there's a Long Task—a task that runs on the main thread for more than 50 milliseconds (ms).
-
----
-
-## Is it smooth? Frame Rate...
-
-<img src="./images/frames_per_second.gif" alt="Frames per second comparison for visual jank" >
-
-Note: Frame rate or frames per second (fps), is one measure of responsiveness. Modern devices refresh their screens at a rate of 60 fps. Converting that to an individual frame, we theoretically have 16 ms to render. In actuality, the browser needs some of that time, so we should target 10ms per frame. Any more, and the human eye will be able to detect the jank or jitter.
-
----
-
 ## RAIL model for performance goals
 
 - **Response**: process events in under 50ms
@@ -341,30 +259,13 @@ Note: R:Complete a transition initiated by user input within 100ms. A: Have 16ms
 
 ---
 
-<img class="nooutline" width="150px" src="./images/tool-devtools.svg" alt="Chrome DevTools"/>
+## Core Web Vitals
 
-## DevTools High-Level Orientation
+<img src="./images/core_web_vitals.png" class="plain">
 
-- **Performance**: script and other execution costs (flame chart)
-- **Network**: download time (waterfall)
-- **Audits**: scores performance, PWAs, accessibility, etc (Lighthouse)
-- **Coverage**: shows used vs. unused bytes includes in the load
+<small>[Web Vitals](https://web.dev/vitals/), [The Science Behind Web Vitals](https://blog.chromium.org/2020/05/the-science-behind-web-vitals.html)</small>
 
-Note: Lots of other cool tools exist like local overrides, paint layers, etc.
-
----
-
-<img class="nooutline" width="80%" src="./images/no_extensions.png" alt="Chrome extensions negatively affected this page's load performance. Try auditing the page in incognito mode or from a Chrome profile without extensions.">
-
-Note: You can use incognito mode, but if you want to be able to test caching, you should set up a separate Chrome profile...
-
----
-
-# Set up DevTools #LikeABoss
-
-<img class="nooutline" width="150px" src="./images/tool-devtools.svg" alt="Chrome DevTools"/>
-
-[bit.ly/boss-devtools](http://bit.ly/boss-devtools)
+Note: Target is 75% of loads. "Core Web Vitals are the subset of Web Vitals that apply to all web pages, should be measured by all site owners, and will be surfaced across all Google tools. Each of the Core Web Vitals represents a distinct facet of the user experience, is measurable in the field, and reflects the real-world experience of a critical user-centric outcome."
 
 ---
 
@@ -428,13 +329,13 @@ Note: In addition, header compression. HTTP2 server push has not lived up to the
 ## Webfonts
 
 <ul class="plus-minus">
-  <li class="plus">Hosted on fast and reliable CDNs</li>
-  <li class="plus">Can provide optimized variants based on user's browser</li>
-   <li class="plus">Opportunity for shared caching on popular fonts</li>
-  <li class="plus">We now have control over FOUT and FOIT!</li>
-  <li class="minus">Minumum of 2 separate requests</li>
-  <li class="minus">Can't use resource hints on the font file</li>
-  <li class="minus">Doesn't take advantage of HTTP2 multiplexing</li>
+  <li class="plus fragment fade-in-then-semi-out">Hosted on fast and reliable CDNs</li>
+  <li class="plus fragment fade-in-then-semi-out">Can provide optimized variants based on user's browser</li>
+  <li class="plus fragment fade-in-then-semi-out"><del>Opportunity for shared caching on popular fonts</del></li>
+  <li class="plus fragment fade-in-then-semi-out">We now have control over FOUT and FOIT!</li>
+  <li class="minus fragment fade-in-then-semi-out">Minumum of 2 separate requests</li>
+  <li class="minus fragment fade-in-then-semi-out">Can't use resource hints on the font file</li>
+  <li class="minus fragment fade-in-then-semi-out">Doesn't take advantage of HTTP2 multiplexing</li>
 </ul>
 
 ---
@@ -505,12 +406,15 @@ Note: dns-prefetch only does the dns part of the prefetch, but on the plus side,
 
 ## Self-Hosted Fonts
 
-```html
-<link as="font" type="font/woff2"
-  href="./fonts/muli-v12-latin-regular.woff2" crossorigin>
-
-<link as="font" type="font/woff2"
-  href="./fonts/muli-v12-latin-700.woff2" crossorigin>
+```css
+@font-face {
+  font-family: "Muli";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Muli Regular"), local("Muli-Regular"),
+    url("./fonts/muli-v13-latin-regular.woff2") format("woff2"),
+    url("./fonts/muli-v13-latin-regular.woff") format("woff");
+}
 ```
 
 <img class="nooutline" src="./images/fonts-local.png" alt="Google fonts load waterfall showing local font waiting to load until after CSS">
@@ -521,12 +425,15 @@ Note: dns-prefetch only does the dns part of the prefetch, but on the plus side,
 
 ## Self-Hosted Fonts
 
-```html
-<link as="font" type="font/woff2"
-  href="./fonts/muli-v12-latin-regular.woff2" crossorigin>
-
-<link as="font" type="font/woff2"
-  href="./fonts/muli-v12-latin-700.woff2" crossorigin>
+```css
+@font-face {
+  font-family: "Muli";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Muli Regular"), local("Muli-Regular"),
+    url("./fonts/muli-v13-latin-regular.woff2") format("woff2"),
+    url("./fonts/muli-v13-latin-regular.woff") format("woff");
+}
 ```
 
 <img class="nooutline" src="./images/no-preload.png" alt="Google fonts load waterfall showing local font waiting to load until after CSS">
@@ -545,7 +452,7 @@ Note: dns-prefetch only does the dns part of the prefetch, but on the plus side,
 
 <img src="./images/font_preload.png" alt="Self-hosted waterfall showing preload">
 
-<small>Note that `preload` loads a resource whether used or not. Only preload resources that are needed on a particular page. ~~Don't self-host popular webfonts like Open Sans or Roboto (sabotages caching)~~.</small>
+<small>Note that `preload` loads a resource whether used or not. Only preload resources that are needed on a particular page, and limit how many you preload.</small>
 
 Note: `rel="preload"` tells the browser to declaratively fetch the resource but not “execute” it (our CSS will queue usage). `as="font"` tells the browser what it will be downloading so that it can set an appropriate priority. Without it, the browser would set a default low priority. `type="font/woff2` tells the browser the file type so that it only downloads the resource if it supports that file type. `crossorigin` is required because fonts are fetched using anonymous mode CORS.
 
@@ -584,7 +491,6 @@ Note: add the `font-display` property to the `@font-face` declaration
 
 ## More Latency and Caching Strategies
 
-- Adjust network download priority with **priority hints**
 - Use appropriate **caching headers**
 - Use **service workers** for precaching and offline optimization
 - **Lazy-load** non-critical assets (below-the-fold assets like images, components in JavaScript, etc.)
@@ -611,14 +517,29 @@ Note: PRPL pattern - push, render, pre-cache, lazy-load
 
 Images account for 50% of the bytes <br>on average needed to load a webpage.
 
-<small>[httparchive.org](https://httparchive.org), November 2019</small>
+<small>[httparchive.org](https://httparchive.org), January 2020</small>
+
+---
+
+<img src="./images/httparchive-images.png" alt="HTTPArchive chart of image bytes transferred over time" style="border:none">
+
+<small>[httparchive.org](https://httparchive.org), January 2020</small>
+
+---
+
+## kB by Percentile
+
+<img src="./images/chart.svg" alt="" style="border:none">
+
+<small>[httparchive.org](https://httparchive.org), January 2020</small>
 
 ---
 
 ## Image Goals
 
-1. Users shouldn't download unnecessary bytes.
-2. Our images should look good.
+1. Users shouldn't download unnecessary bytes 💾 <!-- .element: class="fragment fade-in-then-semi-out" -->
+2. Our images should look good 💅🏼 <!-- .element: class="fragment fade-in-then-semi-out" -->
+3. Stop the layout shift ✋🏽<!-- .element: class="fragment fade-in-then-semi-out" -->
 
 ---
 
@@ -653,17 +574,95 @@ Note: Raster images contain a set of data about a 2D grid of pixels. Vectors are
 
 ---
 
-## File Format Options
+<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="turquoise" /><circle cx="150" cy="100" r="80" fill="rebeccapurple" /><text x="150" y="125" font-size="60" text-anchor="middle" fill="white">SVG</text></svg>
 
-- SVG (vector) - best for limited colors and sharp lines (e.g., logos) <!-- .element: class="fragment fade-in-then-semi-out" -->
-- GIF (lossy) - fun but terrible. Use SVG or video instead <!-- .element: class="fragment fade-in-then-semi-out" -->
-- PNG (lossless) - best for photo-realistic with transparency <!-- .element: class="fragment fade-in-then-semi-out" -->
-- JPG (lossy) - much better compression based on hue <!-- .element: class="fragment fade-in-then-semi-out" -->
-- WEBP (lossy or lossless) - best of both PNG and JPG with smaller file sizes <!-- .element: class="fragment fade-in-then-semi-out" -->
+```xml
+<svg version="1.1"
+     width="300" height="200"
+     xmlns="http://www.w3.org/2000/svg">
 
-<small>[Responsive Doggos Demo](https://sia.codes/responsive-images-demo/)</small>
+  <rect width="100%" height="100%" fill="turquoise" />
+  <circle cx="150" cy="100" r="80" fill="rebeccapurple" />
+  <text x="150" y="125" font-size="60"
+        text-anchor="middle" fill="white">SVG</text>
+</svg>
+```
 
-Note: Raster file formats are really just different compression methods. **SVG**: Can style and animate with CSS or make basic edits in XML. **GIF**: huge file sizes for animation, use video instead. svg or jpg are better for stills. Twitter converts GIF to video. **Lossless compression** - like using ZIP for a file but all the data is still saved. **PNG**: Use jpg if don't need transparency. **JPG**: much better compression algos.
+Note: (vector) - best for limited colors and sharp lines (e.g., logos)
+
+---
+
+## GIF
+
+Just. Don't.
+
+<video controls width="700" autoplay loop>
+  <source src="./images/dont.mp4" type="video/mp4">
+  Sorry, your browser doesn't support embedded videos.
+</video>
+
+Note: (lossy) - fun but terrible. Use SVG or video instead. Inspect this (or on Twitter) and see that's it's video.
+
+---
+
+## PNG: photo-like images with transparency
+
+<img class="plain" src="./images/harry.png" alt="cut out image of my dog with no/transparent background">
+
+Note: (lossless) - best for photo-realistic with transparency. **Lossless compression** - like using ZIP for a file but all the data is still saved.
+
+---
+
+## JPG: photo-like images with no transparency
+
+<img class="plain" src="./images/harry-garden.jpg" alt="photo of my dog in a garden" width=600px>
+
+Note: JPG is your photo workhorse. It's a lossy format that was created to compress by hue - in a way that human eyes are less likely to detect, so it's smaller than PNG. Use for all:
+
+---
+
+## Progressive JPG
+
+<img class="plain" width=600px src="./images/sleepy-purrito-baseline-timeline.jpeg" alt="cats rendering in a raster way">
+<img class="plain" width=600px src="./images/sleepy-purrito-progressive-timeline.jpeg" alt="cats rendering from blurry to sharp">
+
+<small>[What is a progressive JPEG?](https://www.liquidweb.com/kb/what-is-a-progressive-jpeg/) by Liquid Web</small>
+
+Note: hard to tell when an image has actually finished loading. You might even get a bad impression from a website because “the photos look blurry” (while in fact the site was still loading and you only saw a progressive preview of the photos)
+
+---
+
+## WEBP: best of both worlds
+
+<img class="plain" src="./images/caniuse-webp.png" alt="caniuse page for webp showing not much safari support">
+
+<small>[caniuse](https://caniuse.com/#feat=webp)</small>
+
+Note: WEBP is a new format available on most modern browsers (I'm looking at you, Safari) that combines the best of JPG and PNG with smaller sizes. It's lossy or lossless and supports transparency.
+
+---
+
+## AVIF: format of the future
+
+<img class="plain" src="./images/caniuse-avif.png" alt="caniuse page for avif">
+
+<small>[caniuse](https://caniuse.com/avif), [AVIF for Next-Generation Image Coding](https://netflixtechblog.com/avif-for-next-generation-image-coding-b1d75675fe4), [AVIF has landed](https://jakearchibald.com/2020/avif-has-landed/)</small>
+
+Note: AVIF is a new image format derived from the keyframes of AV1 video.
+
+---
+
+## Cheatsheet
+
+- ✅ SVG: logos and icons <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
+- ❌ GIF: don't. use jpg for a still or video for animation. <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
+- ✅ PNG: photo-like images with transparency <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
+- ✅ JPG: photo-like images with no transparency <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
+- ✅ WEBP: smaller, but need to serve fallbacks <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
+
+<small>[Responsive Doggos Demo](https://projects.sia.codes/responsive-images-demo/)</small>
+
+Note: Raster file formats are really just different compression methods. **SVG**: Can style and animate with CSS or make basic edits in XML. **GIF**: huge file sizes for animation, use video instead. svg or jpg are better for stills. Twitter converts GIF to video.  **PNG**: Use jpg if don't need transparency. **JPG**: much better compression algos.
 
 ---
 
@@ -671,11 +670,13 @@ Note: Raster file formats are really just different compression methods. **SVG**
 
 ---
 
-## Demystifying Resolution
+## Demystifying DPR (device pixel ratio)
 
-**DPR** = device pixel ratio
+On a 2x screen, a displayed image width of 100px needs a 200px file/natural width image to look good.
 
-**In layman's terms**:<br> On a 2x screen, a displayed image width of 100px needs a 200px file/natural width image to look good.
+<img class="plain" src="./images/bantha-resolution.jpeg" alt="Dog in a bantha costume at multiple resolutions from blurry to clear">
+
+Note: n this exaggerated example, the natural width of the bantha doggo on the left is 150px, then 300px, then 600px. The display width is 300px, and my screen has a DPR (device pixel ratio) of 2. 150px is fuzzy. Looking closely, the middle image is not the best quality either.
 
 ---
 
@@ -760,6 +761,7 @@ Note: (1) In this `picture` tag, we have 2 sources and an img. Older browsers si
 
 ```html
 <picture>
+  <source type="image/avif" srcset="pug_life.avif">
   <source type="image/webp" srcset="pug_life.webp">
   <img src="pug_life.jpg"
        alt="pug wearing a striped t-shirt like a boss">
@@ -786,33 +788,35 @@ Note: (1) In this `picture` tag, we have 2 sources and an img. Older browsers si
 
 ---
 
-## Do I really have to write all this markup?
+<img class="nooutline" src="./images/image-cli-tweet.png" alt="Are you a developer like me that does not have fancy design tools? You can still process images with CLI tools! Here's a reference I use whenever I want to convert or resize images, using ImageMagick, cwebp, and more." height="500px">
 
-Nope. Some (not all) tooling options:
-
-- Simple `<img>` and server selects best image to serve
-- Paid cloud-based services like [Cloudinary](https://cloudinary.com)
-- Build tools like various webpack loaders
-
-<small>[Image Analysis Tool by Cloudinary](https://webspeedtest.cloudinary.com/)</small>
-
-Note: (1) Many people have their server hijack the request and serve the best image to minimize markup. Could also use a serverless function. (2) Cost money. (3) So many options - both create your srcset code and process the images
+<small>[Images on the Command Line reference](https://github.com/siakaramalegos/images-on-the-command-line), [Tweet](https://twitter.com/TheGreenGreek/status/1201494377522225153)</small>
 
 ---
 
-## CSS Background Image Performance
+## Paid Services 💰
 
-- Use media queries to select the best width image for a chosen screen size and DPR
-- Use postcss/autoprefixer to get prefixes
+- [Cloudinary](https://cloudinary.com/)
+- [Netlify large media](https://docs.netlify.com/large-media/overview/#large-media-docs)
+- ...and many others
 
-  ```css
-  @media only screen and (min-width: 320px) {
-    /* small screen, DPR = 1 */ }
-  @media only screen and (min-device-pixel-ratio: 2) and (min-width: 320px),
-    only screen and (min-resolution: 192dpi) and (min-width: 320px),
-    only screen and (min-resolution: 2dppx) and (min-width: 320px),{
-    /* small screen, DPR = 2 */ }
-  ```
+```bash
+[baseUrl]/eeeps/image/upload/f_auto,q_70,w_512/photo.jpg
+```
+
+<small>[Image Analysis Tool by Cloudinary](https://webspeedtest.cloudinary.com/)*</small>
+
+---
+
+## Other tooling options:
+
+- Simple `<img>` and server/serverless function selects best image to serve
+- Build tools like various webpack loaders (but `sizes` not supported)
+  - [responsive-loader](https://github.com/herrstucki/responsive-loader)
+  - [gatsby-image](https://www.gatsbyjs.org/packages/gatsby-image/) and [gatsby-transformer-sharp](https://image-processing.gatsbyjs.org/)
+
+
+Note: (1) Many people have their server hijack the request and serve the best image to minimize markup. Could also use a serverless function. (2) Cost money. (3) So many options - both create your srcset code and process the images
 
 ---
 
@@ -841,9 +845,11 @@ Note: Some browsers will still load hidden images.
 
 ---
 
-# 😭😭😭😭😭😭
+<img src="./images/caniuse-loading.png" alt="Can I Use shows 60.9% compatibility with loading attr" width="80%" class="no-outline">
 
-<img src="./images/caniuse-loading.png" alt="Can I Use shows 60.9% compatibility with loading attr" width="80%">
+<small>[caniuse](https://caniuse.com/loading-lazy-attr)</small>
+
+Note: It's getting closer! Last time I checked, it was around 60%
 
 ---
 
@@ -865,12 +871,6 @@ In the meantime, use a tool like [lazysizes](https://github.com/aFarkas/lazysize
   Check out <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images">Responsive images</a> on MDN &amp; <a href="https://abookapart.com/products/image-performance">Image Performance</a> by Mat Marquis.
   <br><a href="https://www.npmjs.com/package/sharp">Sharp</a> &amp; <a href="https://www.imagemagick.org/script/index.php">Imagemagick</a> are great for resizing images. Examples at <a href="https://web.dev/fast/serve-responsive-images">Serve Responsive Images</a>. Use cwebp for creating webp files (<a href="https://developers.google.com/speed/webp/docs/cwebp">docs</a>).
 </small>
-
----
-
-<img class="nooutline" src="./images/image-cli-tweet.png" alt="Are you a developer like me that does not have fancy design tools? You can still process images with CLI tools! Here's a reference I use whenever I want to convert or resize images, using ImageMagick, cwebp, and more." height="500px">
-
-<small>https://twitter.com/TheGreenGreek/status/1201494377522225153, https://github.com/siakaramalegos/images-on-the-command-line</small>
 
 ---
 
@@ -914,12 +914,14 @@ import {isEmpty} from 'lodash';
 
 // Little = 24kb
 import isEmpty from 'lodash/isEmpty';
+import { upperCase } from 'lodash-es';
 
 // Big = 544kb
 import moment from 'moment';
 
 // Little = 11kb
 import addMinutes from 'date-fns/add_minutes';
+import { addDays, format } from 'date-fns/fp'
 ```
 
 <small>Use Moment? Try [date-fns](https://date-fns.org/) instead.</small>
