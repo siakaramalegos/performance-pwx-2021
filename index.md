@@ -12,9 +12,9 @@ highlightTheme: github
 
 ## hi, i'm sia
 
-⚡ 👩🏻‍💻 🇬🇷 🐶 🐺 🎨 📓 ✈️
+[sia.codes](https://sia.codes/)
 
-<img src="./images/sia.gif" alt="Sia at Mardi Gras" height="450px" style="border:none;">
+<img src="./images/champagne_sia.jpg" alt="Sia dressed up as a champagne bottle at Mardi Gras" height="450px" class="no-outline">
 
 ---
 
