@@ -1,7 +1,8 @@
 ---
 theme: style.css
-verticalSeparator: ---
 highlightTheme: github
+revealOptions:
+  transition: none
 ---
 
 <!-- .slide: data-background="./images/hero_bg.jpg" -->
@@ -110,7 +111,7 @@ Note: Most of the energy is consumed by the network and data center, not users' 
       </td>
       <td>
         <ul class="plus-minus" style="display:inline;">
-          <li class="plus">Performance data from **real user page loads** and interactions</li>
+          <li class="plus">Performance data from <strong>real user page loads</strong> and interactions</li>
           <li class="minus">Limited data and performance debugging capability</li>
       </td>
     </tr>
@@ -119,114 +120,21 @@ Note: Most of the energy is consumed by the network and data center, not users' 
 
 ---
 
-## Lab/Synthetic Environment Tools
+## New Lab Testing Tools/Features
 
-_Emulated CPU and network throttling_
-
-<div id="dev-tool">
-  <img class="nooutline" width="150px" src="./images/tool-devtools.svg" alt="Chrome DevTools"/>
-  <div>Chrome DevTools</div>
-</div>
-<div id="dev-tool">
-  <img class="nooutline" width="150px" src="./images/tool-lighthouse.svg" alt="Lighthouse"/>
-  <div>Lighthouse</div>
-</div>
-<div id="dev-tool">
-  <img class="nooutline" width="150px" src="./images/tool-psi.svg" alt="PageSpeed Insights"/>
-  <div>PageSpeed Insights</div>
-</div>
-
-Note: DevTools for Network tab (load) and Performance tab (script execution costs)
+- [Render-blocking JS and CSS flags](https://sia.codes/posts/render-blocking-resources/#how-do-i-test-my-website-for-render-blocking-resources%3F) in Webpagetest
+- [Lighthouse Treemap](https://sia.codes/posts/lighthouse-treemap/)
+- [Lighthouse user flows](https://web.dev/lighthouse-user-flows/)
+- Chrome Dev Tools [recorder panel](https://developer.chrome.com/blog/new-in-devtools-97/#recorder) ([video](https://twitter.com/addyosmani/status/1465221489209319428))
 
 ---
 
-> Your laptop is a filthy liar.
+## More focus on real user data
 
-<small>Alex Russell, [Progressive Performance talk at Chrome Dev Summit 2016](https://www.youtube.com/watch?v=4bZvq3nodf4)</small>
-
-Note: network and CPU throttling are not representative of real user experiences. mobile CPUs process in a completely different way, and heat management is especially different.
-
----
-
-## Optimize for the device and network your users have
-
-- 2-5x difference in fastest vs slowest phones <!-- .element: class="fragment fade-in-then-semi-out" -->
-- 75% of worldwide mobile connections on 2G or 3G <!-- .element: class="fragment fade-in-then-semi-out" -->
-- Not just developing countries but rural areas or spotty networks like conference wifi <!-- .element: class="fragment fade-in-then-semi-out" -->
-- Use Google Analytics data to profile your users and configure webpagetest.org to reflect them more closely <!-- .element: class="fragment fade-in-then-semi-out" -->
-- Set performance budgets using webpack <!-- .element: class="fragment fade-in-then-semi-out" -->
-
-<small>https://infrequently.org/2017/10/can-you-afford-it-real-world-web-performance-budgets/</small>
-
-Note: Performance budgets at Google are $200 Android phone on a slow 3G network to target 5s initial load and 2s for subsequent. Converts to 130-170kb gzipped.
-
----
-
-## Lab/Synthetic Environment Tools
-
-_Real devices and networks_
-
-<div id="dev-tool">
-  <img class="nooutline" width="150px" src="./images/tool-webpagetest.svg" alt="WebPageTest"/>
-  <div>WebPageTest<br>&nbsp;</div>
-</div>
-
-<div id="dev-tool">
-  <img class="nooutline" width="150px" src="./images/tool-devtools.svg" alt="Chrome DevTools"/>
-  <div>DevTools +<br>connected device 📱</div>
-</div>
-
-Note: Buy a shitty phone and connect it to your computer for on-device debugging. webpagetest.org/easy has a basic set up - $200 phone, slow 3G?
-
----
-
-## WebPageTest
-
-<img src="./images/webpagetest_phones.jpeg" alt="Basement phone bank for webpagetest.org" width="80%" >
-
-<small>https://twitter.com/HenriHelvetica/status/1109557588411203584</small>
-
----
-
-# But I want data from real users
-
----
-
-## Field/RUM Testing Tools
-
-_Publicly available data_
-
-<div id="dev-tool">
-  <img class="nooutline" width="150px" src="./images/tool-crux.png" alt="CrUX"/>
-  <div>CrUX</div>
-</div>
-
-<div id="dev-tool">
-  <img class="nooutline" width="150px" src="./images/tool-psi.svg" alt="PageSpeed Insights"/>
-  <div>PageSpeed Insights</div>
-</div>
-
-<div id="dev-tool">
-  <img class="nooutline" width="150px" src="./images/tool-big-query.svg" alt="Big Query"/>
-  <div>Google BigQuery</div>
-</div>
-
-<small>Chrome User Experience (CrUX) data is available in PageSpeed Insights or BigQuery.</small>
-
----
-
-## Field/RUM Testing Tools
-
-_Self-run data sent to your backend or analytics tool_
-
-- Navigation Timing API
-- Resource Timing API
-- User Timing API for custom timings
-
-<small>
-  https://developers.google.com/web/fundamentals/performance/navigation-and-resource-timing/
-  <br />https://www.keycdn.com/blog/user-timing/
-<small>
+- [Web Vitals Report](https://web-vitals-report.web.app/) + [web-vitals npm package](https://github.com/GoogleChrome/web-vitals)
+- Many analytics vendors ([Speedcurve](https://www.speedcurve.com/), [Calibre](https://calibreapp.com/))
+- Starting to be bundled in more general analytics/deployment products like [Layer 0](https://www.layer0.co/performance-monitor)
+- [Reporting API](https://developer.mozilla.org/en-US/docs/Web/API/Reporting_API)
 
 ---
 
@@ -242,20 +150,7 @@ _Self-run data sent to your backend or analytics tool_
 
 1. When can I see the page? <!-- .element: class="fragment fade-in-then-semi-out" -->
 2. When can I interact with it? <!-- .element: class="fragment fade-in-then-semi-out" -->
-3. Is it smooth? <!-- .element: class="fragment fade-in-then-semi-out" -->
-
----
-
-## RAIL model for performance goals
-
-- **Response**: process events in under 50ms
-- **Animation**: produce a frame in 10ms (for 60fps devices)
-- **Idle**: maximize idle time (to respond in 50ms or less)
-- **Load**: deliver content and become interactive in under 5 seconds, 2 seconds for subsequent loads*
-
-<small>[Measure Performance with the RAIL Model](https://developers.google.com/web/fundamentals/performance/rail)</small>
-
-Note: R:Complete a transition initiated by user input within 100ms. A: Have 16ms, but browsers need about 6ms to render each frame. I: Maximize idle time to increase the odds that the page responds to user input within 50ms. L:on mid-range mobile devices with slow 3G connections
+3. Is it delightful? <!-- .element: class="fragment fade-in-then-semi-out" -->
 
 ---
 
@@ -265,7 +160,473 @@ Note: R:Complete a transition initiated by user input within 100ms. A: Have 16ms
 
 <small>[Web Vitals](https://web.dev/vitals/), [The Science Behind Web Vitals](https://blog.chromium.org/2020/05/the-science-behind-web-vitals.html)</small>
 
-Note: Target is 75% of loads. "Core Web Vitals are the subset of Web Vitals that apply to all web pages, should be measured by all site owners, and will be surfaced across all Google tools. Each of the Core Web Vitals represents a distinct facet of the user experience, is measurable in the field, and reflects the real-world experience of a critical user-centric outcome."
+Note: Target is 75% of loads. "Core Web Vitals are the subset of Web Vitals that apply to all web pages, should be measured by all site owners, and will be surfaced across all Google tools. Each of the Core Web Vitals represents a distinct facet of the user experience, is measurable in the field, and reflects the real-world experience of a critical user-centric outcome." Note modifications over time to improve.
+
+---
+
+## New metrics under evaluation
+
+*Provide feedback now!*
+
+- [Smoothness/animation metric](https://web.dev/smoothness/)
+- [Better responsiveness metric](https://web.dev/better-responsiveness-metric/)
+
+---
+
+<!-- .slide: data-background="./images/yellow-camera.jpg" -->
+<h1 class="title" style="text-align:left;color: rgb(214, 61, 31);">Optimized, <br><span class="translucent">Responsive </span><br>Images</h1>
+
+---
+
+Images account for 45% of the bytes <br>on average needed to load a webpage.
+
+<small>[httparchive.org](https://httparchive.org), October 2021</small>
+
+Note: actually down from 50% - maybe due to increased use of lazy loading
+
+---
+
+<img src="./images/timeseries-of-image-byte.png" alt="HTTPArchive chart of image bytes transferred over time" style="border:none">
+
+<small>[httparchive.org](https://httparchive.org), October 2021</small>
+
+---
+
+## kB by Percentile
+
+<img src="./images/chart.svg" alt="" style="border:none">
+
+<small>[httparchive.org](https://httparchive.org), October 2021</small>
+
+---
+
+
+"18% of global Android Chrome users have Lite Mode enabled (aka Save-Data)"
+
+<img src="./images/save-data-usage.jpg" alt="" style="border:none">
+
+<small>https://twitter.com/colinbendell/status/1265675813204172810</small>
+
+Note: true numbers higher https://twitter.com/addyosmani/status/1265677876608655361
+
+---
+
+## Image Goals
+
+1. Users shouldn't download unnecessary bytes 💾 <!-- .element: class="fragment fade-in-then-semi-out" -->
+2. Our images should look good 💅🏼 <!-- .element: class="fragment fade-in-then-semi-out" -->
+3. Stop the layout shift ✋🏽<!-- .element: class="fragment fade-in-then-semi-out" -->
+
+---
+
+## Responsive &amp; Optimized Toolbox 🧰
+
+- Best file format <!-- .element: class="fragment fade-in-then-semi-out" -->
+- Right size and resolution <!-- .element: class="fragment fade-in-then-semi-out" -->
+- Art direction <!-- .element: class="fragment fade-in-then-semi-out" -->
+- Lazy loading <!-- .element: class="fragment fade-in-then-semi-out" -->
+
+---
+
+<!-- .slide: data-background="./images/disk-drive.jpg" class="dark-highlighter" -->
+
+# File Format <!-- .element: class="dark-background" style="color:#fecf16" -->
+
+---
+
+> Choosing the right image format... can be far more important than any flashy new “responsive image” technique.
+
+<small>Mat Marquis, [Image Performance](https://abookapart.com/products/image-performance)</small>
+
+Note: Responsive Issues Community Group (RICG) chair. Getting the right image format is more important than any responsive image technique.
+
+---
+
+## Raster vs Vector
+
+<img src="./images/raster_vs_vector.png" alt="Raster vs Vector scaling" width="80%">
+
+<small>https://commons.wikimedia.org/wiki/File:Bitmap_VS_SVG.svg</small>
+
+Note: Raster images contain a set of data about a 2D grid of pixels. Vectors are a system of coordinates and "vectors" than can be redrawn at any size. Rasters are good for photo-realism. Raster file formats are really just different compression methods.
+
+---
+
+<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="turquoise" /><circle cx="150" cy="100" r="80" fill="rebeccapurple" /><text x="150" y="125" font-size="60" text-anchor="middle" fill="white">SVG</text></svg>
+
+```xml
+<svg version="1.1"
+     width="300" height="200"
+     xmlns="http://www.w3.org/2000/svg">
+
+  <rect width="100%" height="100%" fill="turquoise" />
+  <circle cx="150" cy="100" r="80" fill="rebeccapurple" />
+  <text x="150" y="125" font-size="60"
+        text-anchor="middle" fill="white">SVG</text>
+</svg>
+```
+
+Note: (vector) - best for limited colors and sharp lines (e.g., logos)
+
+---
+
+## GIF
+
+Just. Don't.
+
+<video controls width="700" autoplay loop>
+  <source src="./images/dont.mp4" type="video/mp4">
+  Sorry, your browser doesn't support embedded videos.
+</video>
+
+Note: (lossy) - fun but terrible. Use SVG or video instead. Inspect this (or on Twitter) and see that's it's video.
+
+---
+
+## PNG: photo-like images with transparency
+
+<img class="plain" src="./images/harry.png" alt="cut out image of my dog with no/transparent background">
+
+Note: (lossless) - best for photo-realistic with transparency. **Lossless compression** - like using ZIP for a file but all the data is still saved.
+
+---
+
+## JPG: photo-like images with no transparency
+
+<img class="plain" src="./images/harry-garden.jpg" alt="photo of my dog in a garden" width=600px>
+
+Note: JPG is your photo workhorse. It's a lossy format that was created to compress by hue - in a way that human eyes are less likely to detect, so it's smaller than PNG. Use for all:
+
+---
+
+## Progressive JPG
+
+<img class="plain" width=600px src="./images/sleepy-purrito-baseline-timeline.jpeg" alt="cats rendering in a raster way">
+<img class="plain" width=600px src="./images/sleepy-purrito-progressive-timeline.jpeg" alt="cats rendering from blurry to sharp">
+
+<small>[What is a progressive JPEG?](https://www.liquidweb.com/kb/what-is-a-progressive-jpeg/) by Liquid Web</small>
+
+Note: hard to tell when an image has actually finished loading. You might even get a bad impression from a website because “the photos look blurry” (while in fact the site was still loading and you only saw a progressive preview of the photos)
+
+---
+
+## WEBP: Best of both worlds
+
+<img class="plain" src="./images/caniuse-webp.png" alt="caniuse page for webp showing not much safari support">
+
+<small>[caniuse](https://caniuse.com/#feat=webp)</small>
+
+Note: WEBP is a new format available on most modern browsers (I'm looking at you, Safari) that combines the best of JPG and PNG with smaller sizes. It's lossy or lossless and supports transparency.
+
+---
+
+## AVIF: The future
+
+<img class="plain" src="./images/caniuse_avif.png" alt="caniuse page for avif showing limited support">
+
+<small>[Equal file sizes demo](https://jakearchibald.com/2020/avif-has-landed/#at-equal-file-sizes) by Jake Archibald, [caniuse](https://caniuse.com/avif)</small>
+
+Note: AVIF is an extraction from the keyframes of the now popular video format AV1. Best compression, supports transparency and more.
+
+---
+
+## JPEG XL: The way future
+
+<img class="plain" src="./images/caniuse-jpegxl.png" alt="caniuse page for jpeg xl showing no support">
+
+<small>[caniuse](https://caniuse.com/jpegxl)</small>
+
+---
+
+## Cheatsheet
+
+- ✅ SVG: logos and icons <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
+- ❌ GIF: don't. use jpg for a still or video for animation. <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
+- ✅ PNG: photo-like images with transparency <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
+- ✅ JPG: photo-like images with no transparency <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
+- ✅ WEBP: smaller, but need to serve fallbacks <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
+- ✅ AVIF: EVEN SMALLER, but need to serve fallbacks <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
+
+<small>[Responsive Doggos Demo](https://projects.sia.codes/responsive-images-demo/)</small>
+
+Note: Raster file formats are really just different compression methods. **SVG**: Can style and animate with CSS or make basic edits in XML. **GIF**: huge file sizes for animation, use video instead. svg or jpg are better for stills. Twitter converts GIF to video.  **PNG**: Use jpg if don't need transparency. **JPG**: much better compression algos.
+
+---
+
+# 📺 Size &amp; Resolution 📺
+
+---
+
+## Demystifying DPR (device pixel ratio)
+
+On a 2x screen, a displayed image width of 100px needs a 200px file/natural width image to look good.
+
+<img class="plain" src="./images/bantha-resolution.jpeg" alt="Dog in a bantha costume at multiple resolutions from blurry to clear">
+
+Note: n this exaggerated example, the natural width of the bantha doggo on the left is 150px, then 300px, then 600px. The display width is 300px, and my screen has a DPR (device pixel ratio) of 2. 150px is fuzzy. Looking closely, the middle image is not the best quality either.
+
+---
+
+## `srcset`
+
+```html
+<img
+  srcset="
+    https://placekitten.com/300/200 300w,
+    https://placekitten.com/600/400 600w
+  "
+  src="https://placekitten.com/300/200"
+  alt="cute random kitten"
+/>
+```
+
+- States a set of images and the natural size of each image <!-- .element: class="fragment fade-in-then-semi-out" -->
+- Browser assumes a display width of 100vw <!-- .element: class="fragment fade-in-then-semi-out" -->
+- Files are candidates, not commands. <!-- .element: class="fragment fade-in-then-semi-out" -->
+
+Note: States a set of images and the natural size of each image. Browser assumes a display width of 100vw. Files are candidates, not commands.. Alternatively, use x-descriptors.
+
+---
+
+## `sizes`
+
+```html
+<img
+  src="https://placekitten.com/300/200"
+  srcset="
+    https://placekitten.com/300/200 300w,
+    https://placekitten.com/600/400 600w,
+    https://placekitten.com/900/500 900w
+  "
+  sizes="(max-width: 320px) 280px,
+         (max-width: 640px) 580px,
+         1000px"
+  alt="cute random kitten"
+/>
+```
+
+- States display width for a set of media conditions <!-- .element: class="fragment fade-in-then-semi-out" -->
+- Order matters! First match is used. <!-- .element: class="fragment fade-in-then-semi-out" -->
+- No media condition for the last one (default for no match). <!-- .element: class="fragment fade-in-then-semi-out" -->
+- Add analogous CSS. <!-- .element: class="fragment fade-in-then-semi-out" -->
+
+Note: Format is [media condition][space][display width]. Once again, these are candidates, not commands. We are letting the browser choose which file to use ultimately.
+
+---
+
+<!-- .slide: data-background="./images/elder-phone.jpg" -->
+<h1 style="text-align:right;">🤔</h1>
+
+Note: How many different resolutions? Science suggests humans can see 720ppi 1 foot from a screen. The iPhone 11 is 326ppi (MBP is 227) so in most cases, you're safe providing only 1x and 2x. You might consider 4x in cases of high-resolution projectors or art.
+
+---
+
+<img src="./images/gov-uk-screen-data.jpeg" alt="Chart showing preponderance of 2x and 3x DPR for mobile and 1x for desktop" class="nooutline" width="55%">
+
+<small><a href="https://twitter.com/TheRealNooshu/status/1397862141894529027">Tweet thread</a> with GOV.UK screen width and DPR data, <a href="https://jakearchibald.com/2021/serving-sharp-images-to-high-density-screens/">Halve the size of images by optimising for high density displays</a></small>
+
+Note: Furthermore, nowadays most mobile screens are 2x and 3x so we can simplify by not providing 1x options at those screen sizes
+
+---
+
+# 🎨 Art Direction 🎨
+
+<img src="./images/art-direction.png" alt="examples of the same image on multiple devices" style="border:none;box-shadow:none;">
+
+Note: (1) Art direction is a technique for drawing attention to the most important parts, or targeting specific features of an image, even when it’s viewed on different devices or platforms. (2) So how do we do art direction?
+
+---
+
+## `<picture>`
+
+- Provide multiple images based on device size, resolution, orientation, and more.
+- Use `media` attribute for viewport spec. First match is used.
+- Always provide `<img>` last for no match or browsers that do not support `<picture>` and `<source>`
+
+```html
+<picture>
+  <source media="(min-width: 800px)"
+          srcset="wide_800.jpg 800w,
+                  wide_1600.jpg 1600w">
+  <source media="(min-width: 400px)"
+          srcset="narrow_400.jpg 400w,
+                  narrow_800.jpg 800w">
+  <img src="wide_800.jpg"
+       alt="Woman with dog looking at Grand Canyon">
+</picture>
+```
+
+Note: (1) In this `picture` tag, we have 2 sources and an img. Older browsers simply ignore the picture and source tags and use the img tag. (2) The video tag also works this way and can have multiple `source` tags
+
+---
+
+## Bleeding-Edge File Formats
+
+```html
+<picture>
+  <source type="image/avif" srcset="pug_life.avif" />
+  <source type="image/webp" srcset="pug_life.webp" />
+  <img src="pug_life.jpg" alt="pug wearing a striped t-shirt like a boss" />
+</picture>
+```
+
+- Browser uses the first compatible file type.
+- Set `<img>` `src` to a format supported by all browsers.
+
+Note: Browser uses the first compatible file type. Set `<img>` `src` to a format supported by all browsers.
+
+---
+
+## `webp`, `srcset`, &amp; `sizes`, oh my!
+
+```html
+<picture>
+  <source srcset="./images/sofa_pug_400.webp 400w,
+                  ./images/sofa_pug_800.webp 800w"
+          type="image/webp" />
+  <img src="./images/sofa_pug_400.jpg"
+        srcset="./images/sofa_pug_400.jpg 400w,
+                ./images/sofa_pug_800.jpg 800w"
+        sizes="400px"
+        width="400px"
+        alt="pug on a sofa looking sad" />
+</picture>
+```
+
+---
+
+<!-- .slide: data-background="./images/photo-collage.jpg" class="dark-highlighter" -->
+
+# Generating Images & Markup <!-- .element: style="color:#fecf16;" -->
+
+---
+
+## Paid Services 💰
+
+For example, [Cloudinary](https://cloudinary.com/) supports AVIF, and you can optionally sign up for the beta to use it with `f_auto`.
+
+```bash
+[baseUrl]/eeeps/image/upload/f_auto,q_70,w_512/photo.jpg
+```
+
+<small>[What to know about AVIF on Cloudinary](https://sia.codes/posts/avif-on-cloudinary/)</small>
+
+---
+
+## More tools created & more packaged into popular frameworks for DX
+
+- Simple `<img>` and server/serverless function selects best image to serve
+- Build tools and integrated frameworks (but `sizes` not always supported)
+  - [next/image](https://nextjs.org/docs/api-reference/next/image)
+  - [responsive-loader](https://github.com/herrstucki/responsive-loader)
+  - [gatsby-image](https://www.gatsbyjs.org/packages/gatsby-image/) and [gatsby-transformer-sharp](https://image-processing.gatsbyjs.org/)
+  - [Eleventy image plugin](https://www.11ty.dev/docs/plugins/image/)
+
+
+Note: (1) Many people have their server hijack the request and serve the best image to minimize markup. Could also use a serverless function. (2) Cost money. (3) So many options - both create your srcset code and process the images
+
+---
+
+<!-- .slide: data-background="./images/falling-mountains.jpg" class="dark-highlighter" -->
+
+# Layout Shift
+
+---
+
+<video controls width="800" autoplay loop>
+  <source src="./images/layout-shift.mp4" type="video/mp4">
+  Sorry, your browser doesn't support embedded videos.
+</video>
+
+---
+
+```html
+<img
+  src="/img/show-money/show-money.jpg"
+  alt="Man's hand holding out a fist full of dollars toward the viewer"
+  height="383"
+  width="680"
+/>
+```
+
+```css
+img {
+  height: auto;
+  max-width: 100%;
+}
+```
+
+<small>[Do This to Improve Image Loading on Your Website](https://www.youtube.com/watch?v=4-d_SoCHeWE&feature=youtu.be) - video by Jen Simmons</small>
+
+Note: Setting the height and width on the image sets an aspect ratio, and then the CSS is respected.
+
+---
+
+<video controls width="800" autoplay loop>
+  <source src="./images/fixed-layout-shift.mp4" type="video/mp4">
+  Sorry, your browser doesn't support embedded videos.
+</video>
+
+---
+
+## New aspect-ratio for beyond images
+
+```css
+aspect-ratio: 1 / 1;
+aspect-ratio: 16 / 9;
+aspect-ratio: 0.5;
+```
+
+<img src="./images/caniuse-aspect-ratio.png" alt="Can I Use shows high implementation of aspect ratio across modern browsers" width="80%" class="no-outline">
+
+<small>[caniuse](https://caniuse.com/aspect-ratio), [Setting Height And Width On Images Is Important Again](https://www.smashingmagazine.com/2020/03/setting-height-width-images-important-again/#fixing-the-resizing-problem)</small>
+
+---
+
+## ⚡🦄🌈⚡ Native lazy-loading ⚡🦄🌈⚡
+
+```html
+<!-- Lazy-load offscreen image when user scrolls near -->
+<img src="./hotlanta.jpg" loading="lazy" alt="...">
+
+<!-- Load an image immediately -->
+<img src="./hotlanta.jpg" loading="eager" alt="...">
+```
+
+<small>[addyosmani.com/blog/lazy-loading/](https://addyosmani.com/blog/lazy-loading/)</small>
+
+---
+
+# ⚡🦄🐈🌈🐼🍕🎂🍾🎉🐶🦄🐈🌈🐼🍕🎂🍾🎉🐶⚡🐈🌈🐼🍕🎂🍾🎉🐶⚡🦄🌈🐼🍕🎂🍾🎉🐶⚡🦄🐈
+
+---
+
+<img src="./images/caniuse-loading.png" alt="Can I Use shows 60.9% compatibility with loading attr" width="80%" class="no-outline">
+
+<small>[caniuse](https://caniuse.com/loading-lazy-attr)</small>
+
+Note: It's getting closer! Last time I checked, it was around 60%
+
+---
+
+In the meantime, use a tool like [lazysizes](https://github.com/aFarkas/lazysizes).
+
+---
+
+## Image Optimization Toolbox
+
+- Use the right image type (png vs jpg, gif vs video). <!-- .element: class="fragment fade-in-then-semi-out" -->
+- Serve the right size image for the user's screen width and device pixel ratio <!-- .element: class="fragment fade-in-then-semi-out" -->
+- Compress images with a tool like ImageOptim, TinyPNG, SVGOMG, or use a webpack plugin like imagemin-webpack-plugin <!-- .element: class="fragment fade-in-then-semi-out" -->
+- Use newer, improved formats like webp and avif. <!-- .element: class="fragment fade-in-then-semi-out" -->
+- Lazy loading, native or with a tool like lazysizes <!-- .element: class="fragment fade-in-then-semi-out" -->
+
+<br>
+<br>
+<small>
+  Check out <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images">Responsive images</a> on MDN &amp; <a href="https://abookapart.com/products/image-performance">Image Performance</a> by Mat Marquis.
+  <br><a href="https://www.npmjs.com/package/sharp">Sharp</a> &amp; <a href="https://www.imagemagick.org/script/index.php">Imagemagick</a> are great for resizing images. Examples at <a href="https://web.dev/fast/serve-responsive-images">Serve Responsive Images</a>. Use cwebp for creating webp files (<a href="https://developers.google.com/speed/webp/docs/cwebp">docs</a>).
+</small>
 
 ---
 
@@ -508,369 +869,6 @@ Note: PRPL pattern - push, render, pre-cache, lazy-load
 - [Making Google Fonts Faster⚡](https://sia.codes/posts/making-google-fonts-faster/) - includes how do download and host locally
 - [Google Analytics + caniuse = *MAGIC*](https://sia.codes/posts/google-analytics-caniuse-magic/) - how to import your Google Analytics data into caniuse
 - [subfont](https://github.com/Munter/subfont)
-
----
-
-# Optimized, Responsive <br>📸 Images 📸
-
----
-
-Images account for 50% of the bytes <br>on average needed to load a webpage.
-
-<small>[httparchive.org](https://httparchive.org), January 2020</small>
-
----
-
-<img src="./images/httparchive-images.png" alt="HTTPArchive chart of image bytes transferred over time" style="border:none">
-
-<small>[httparchive.org](https://httparchive.org), January 2020</small>
-
----
-
-## kB by Percentile
-
-<img src="./images/chart.svg" alt="" style="border:none">
-
-<small>[httparchive.org](https://httparchive.org), January 2020</small>
-
----
-
-## Image Goals
-
-1. Users shouldn't download unnecessary bytes 💾 <!-- .element: class="fragment fade-in-then-semi-out" -->
-2. Our images should look good 💅🏼 <!-- .element: class="fragment fade-in-then-semi-out" -->
-3. Stop the layout shift ✋🏽<!-- .element: class="fragment fade-in-then-semi-out" -->
-
----
-
-## Responsive &amp; Optimized Toolbox
-
-- Best file format <!-- .element: class="fragment fade-in-then-semi-out" -->
-- Right size and resolution <!-- .element: class="fragment fade-in-then-semi-out" -->
-- Art direction <!-- .element: class="fragment fade-in-then-semi-out" -->
-- Lazy loading <!-- .element: class="fragment fade-in-then-semi-out" -->
-
----
-
-# 💾  File Format  💾
-
----
-
-> Choosing the right image format... can be far more important than any flashy new “responsive image” technique.
-
-<small>Mat Marquis, [Image Performance](https://abookapart.com/products/image-performance)</small>
-
-Note: Responsive Issues Community Group (RICG) chair. Getting the right image format is more important than any responsive image technique.
-
----
-
-## Raster vs Vector
-
-<img src="./images/raster_vs_vector.png" alt="Raster vs Vector scaling" width="80%">
-
-<small>https://commons.wikimedia.org/wiki/File:Bitmap_VS_SVG.svg</small>
-
-Note: Raster images contain a set of data about a 2D grid of pixels. Vectors are a system of coordinates and "vectors" than can be redrawn at any size. Rasters are good for photo-realism. Raster file formats are really just different compression methods.
-
----
-
-<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="turquoise" /><circle cx="150" cy="100" r="80" fill="rebeccapurple" /><text x="150" y="125" font-size="60" text-anchor="middle" fill="white">SVG</text></svg>
-
-```xml
-<svg version="1.1"
-     width="300" height="200"
-     xmlns="http://www.w3.org/2000/svg">
-
-  <rect width="100%" height="100%" fill="turquoise" />
-  <circle cx="150" cy="100" r="80" fill="rebeccapurple" />
-  <text x="150" y="125" font-size="60"
-        text-anchor="middle" fill="white">SVG</text>
-</svg>
-```
-
-Note: (vector) - best for limited colors and sharp lines (e.g., logos)
-
----
-
-## GIF
-
-Just. Don't.
-
-<video controls width="700" autoplay loop>
-  <source src="./images/dont.mp4" type="video/mp4">
-  Sorry, your browser doesn't support embedded videos.
-</video>
-
-Note: (lossy) - fun but terrible. Use SVG or video instead. Inspect this (or on Twitter) and see that's it's video.
-
----
-
-## PNG: photo-like images with transparency
-
-<img class="plain" src="./images/harry.png" alt="cut out image of my dog with no/transparent background">
-
-Note: (lossless) - best for photo-realistic with transparency. **Lossless compression** - like using ZIP for a file but all the data is still saved.
-
----
-
-## JPG: photo-like images with no transparency
-
-<img class="plain" src="./images/harry-garden.jpg" alt="photo of my dog in a garden" width=600px>
-
-Note: JPG is your photo workhorse. It's a lossy format that was created to compress by hue - in a way that human eyes are less likely to detect, so it's smaller than PNG. Use for all:
-
----
-
-## Progressive JPG
-
-<img class="plain" width=600px src="./images/sleepy-purrito-baseline-timeline.jpeg" alt="cats rendering in a raster way">
-<img class="plain" width=600px src="./images/sleepy-purrito-progressive-timeline.jpeg" alt="cats rendering from blurry to sharp">
-
-<small>[What is a progressive JPEG?](https://www.liquidweb.com/kb/what-is-a-progressive-jpeg/) by Liquid Web</small>
-
-Note: hard to tell when an image has actually finished loading. You might even get a bad impression from a website because “the photos look blurry” (while in fact the site was still loading and you only saw a progressive preview of the photos)
-
----
-
-## WEBP: best of both worlds
-
-<img class="plain" src="./images/caniuse-webp.png" alt="caniuse page for webp showing not much safari support">
-
-<small>[caniuse](https://caniuse.com/#feat=webp)</small>
-
-Note: WEBP is a new format available on most modern browsers (I'm looking at you, Safari) that combines the best of JPG and PNG with smaller sizes. It's lossy or lossless and supports transparency.
-
----
-
-## AVIF: format of the future
-
-<img class="plain" src="./images/caniuse-avif.png" alt="caniuse page for avif">
-
-<small>[caniuse](https://caniuse.com/avif), [AVIF for Next-Generation Image Coding](https://netflixtechblog.com/avif-for-next-generation-image-coding-b1d75675fe4), [AVIF has landed](https://jakearchibald.com/2020/avif-has-landed/)</small>
-
-Note: AVIF is a new image format derived from the keyframes of AV1 video.
-
----
-
-## Cheatsheet
-
-- ✅ SVG: logos and icons <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
-- ❌ GIF: don't. use jpg for a still or video for animation. <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
-- ✅ PNG: photo-like images with transparency <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
-- ✅ JPG: photo-like images with no transparency <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
-- ✅ WEBP: smaller, but need to serve fallbacks <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
-
-<small>[Responsive Doggos Demo](https://projects.sia.codes/responsive-images-demo/)</small>
-
-Note: Raster file formats are really just different compression methods. **SVG**: Can style and animate with CSS or make basic edits in XML. **GIF**: huge file sizes for animation, use video instead. svg or jpg are better for stills. Twitter converts GIF to video.  **PNG**: Use jpg if don't need transparency. **JPG**: much better compression algos.
-
----
-
-# 📺 Size &amp; Resolution 📺
-
----
-
-## Demystifying DPR (device pixel ratio)
-
-On a 2x screen, a displayed image width of 100px needs a 200px file/natural width image to look good.
-
-<img class="plain" src="./images/bantha-resolution.jpeg" alt="Dog in a bantha costume at multiple resolutions from blurry to clear">
-
-Note: n this exaggerated example, the natural width of the bantha doggo on the left is 150px, then 300px, then 600px. The display width is 300px, and my screen has a DPR (device pixel ratio) of 2. 150px is fuzzy. Looking closely, the middle image is not the best quality either.
-
----
-
-## `srcset`
-
-- Communicates a set of images and the natural size of each image
-- Always include a **base src** attribute for older browsers
-- Browser assumes a display width of `100vw`
-
-**`srcset` files are candidates, not commands.**
-
-```html
-<img srcset="https://placekitten.com/300/200 300w,
-             https://placekitten.com/600/400 600w,
-             https://placekitten.com/900/500 900w"
-     src="https://placekitten.com/300/200"
-     alt="cute random kitten" />
-```
-
-Note: `srcset` is an attribute for `<img>`. Width is in pixels even though is says `w`. Format is filename, space, actual image width in pixels. Alternatively, use x-descriptors.
-
----
-
-## `sizes`
-
-- Communicates display width for a set of media conditions
-- **Order matters! First match is used.**
-- Leave out the media condition for the last one (default for no match)
-- Add analogous CSS
-
-```html
-<img src="https://placekitten.com/300/200"
-  srcset="https://placekitten.com/300/200 300w,
-          https://placekitten.com/600/400 600w,
-          https://placekitten.com/900/500 900w"
-  sizes="(max-width: 320px) 280px,
-         (max-width: 640px) 580px,
-         1000px"
-  alt="cute random kitten" />
-```
-
-Note: Format is [media condition][space][display width]. Once again, these are candidates, not commands. We are letting the browser choose which file to use ultimately.
-
----
-
-# 🎨 Art Direction 🎨
-
-<img src="./images/art-direction.png" alt="examples of the same image on multiple devices" style="border:none;box-shadow:none;">
-
-Note: (1) Art direction is a technique for drawing attention to the most important parts, or targeting specific features of an image, even when it’s viewed on different devices or platforms. (2) So how do we do art direction?
-
----
-
-## `<picture>`
-
-- Provide multiple images based on device size, resolution, orientation, and more.
-- Use `media` attribute for viewport spec. First match is used.
-- Always provide `<img>` last for no match or browsers that do not support `<picture>` and `<source>`
-
-```html
-<picture>
-  <source media="(min-width: 800px)"
-          srcset="wide_800.jpg 800w,
-                  wide_1600.jpg 1600w">
-  <source media="(min-width: 400px)"
-          srcset="narrow_400.jpg 400w,
-                  narrow_800.jpg 800w">
-  <img src="wide_800.jpg"
-       alt="Woman with dog looking at Grand Canyon">
-</picture>
-```
-
-Note: (1) In this `picture` tag, we have 2 sources and an img. Older browsers simply ignore the picture and source tags and use the img tag. (2) The video tag also works this way and can have multiple `source` tags
-
----
-
-## Bleeding-Edge File Formats
-
-- Use `<picture>` for new file formats like `webp`!
-- The browser uses the first compatible file type listed.
-- The `<img>` source should be a fallback file format for browsers that don't support the previous formats listed.
-
-```html
-<picture>
-  <source type="image/avif" srcset="pug_life.avif">
-  <source type="image/webp" srcset="pug_life.webp">
-  <img src="pug_life.jpg"
-       alt="pug wearing a striped t-shirt like a boss">
-</picture>
-```
-
----
-
-## `webp`, `srcset`, &amp; `sizes`, oh my!
-
-```html
-<picture>
-  <source srcset="./images/sofa_pug_400.webp 400w,
-                  ./images/sofa_pug_800.webp 800w"
-          type="image/webp" />
-  <img src="./images/sofa_pug_400.jpg"
-        srcset="./images/sofa_pug_400.jpg 400w,
-                ./images/sofa_pug_800.jpg 800w"
-        sizes="400px"
-        width="400px"
-        alt="pug on a sofa looking sad" />
-</picture>
-```
-
----
-
-<img class="nooutline" src="./images/image-cli-tweet.png" alt="Are you a developer like me that does not have fancy design tools? You can still process images with CLI tools! Here's a reference I use whenever I want to convert or resize images, using ImageMagick, cwebp, and more." height="500px">
-
-<small>[Images on the Command Line reference](https://github.com/siakaramalegos/images-on-the-command-line), [Tweet](https://twitter.com/TheGreenGreek/status/1201494377522225153)</small>
-
----
-
-## Paid Services 💰
-
-- [Cloudinary](https://cloudinary.com/)
-- [Netlify large media](https://docs.netlify.com/large-media/overview/#large-media-docs)
-- ...and many others
-
-```bash
-[baseUrl]/eeeps/image/upload/f_auto,q_70,w_512/photo.jpg
-```
-
-<small>[Image Analysis Tool by Cloudinary](https://webspeedtest.cloudinary.com/)*</small>
-
----
-
-## Other tooling options:
-
-- Simple `<img>` and server/serverless function selects best image to serve
-- Build tools like various webpack loaders (but `sizes` not supported)
-  - [responsive-loader](https://github.com/herrstucki/responsive-loader)
-  - [gatsby-image](https://www.gatsbyjs.org/packages/gatsby-image/) and [gatsby-transformer-sharp](https://image-processing.gatsbyjs.org/)
-
-
-Note: (1) Many people have their server hijack the request and serve the best image to minimize markup. Could also use a serverless function. (2) Cost money. (3) So many options - both create your srcset code and process the images
-
----
-
-# `display: none;`
-# not a perf strategy.
-
-Note: Some browsers will still load hidden images.
-
----
-
-## ⚡🦄🌈⚡ Native lazy-loading ⚡🦄🌈⚡
-
-```html
-<!-- Lazy-load offscreen image when user scrolls near -->
-<img src="./hotlanta.jpg" loading="lazy" alt="...">
-
-<!-- Load an image immediately -->
-<img src="./hotlanta.jpg" loading="eager" alt="...">
-```
-
-<small>[addyosmani.com/blog/lazy-loading/](https://addyosmani.com/blog/lazy-loading/)</small>
-
----
-
-# ⚡🦄🐈🌈🐼🍕🎂🍾🎉🐶🦄🐈🌈🐼🍕🎂🍾🎉🐶⚡🐈🌈🐼🍕🎂🍾🎉🐶⚡🦄🌈🐼🍕🎂🍾🎉🐶⚡🦄🐈
-
----
-
-<img src="./images/caniuse-loading.png" alt="Can I Use shows 60.9% compatibility with loading attr" width="80%" class="no-outline">
-
-<small>[caniuse](https://caniuse.com/loading-lazy-attr)</small>
-
-Note: It's getting closer! Last time I checked, it was around 60%
-
----
-
-In the meantime, use a tool like [lazysizes](https://github.com/aFarkas/lazysizes).
-
----
-
-## Image Optimization Toolbox
-
-- Use the right image type (png vs jpg, gif vs video). <!-- .element: class="fragment fade-in-then-semi-out" -->
-- Serve the right size image for the user's screen width and device pixel ratio <!-- .element: class="fragment fade-in-then-semi-out" -->
-- Compress images with a tool like ImageOptim, or use a webpack plugin like imagemin-webpack-plugin <!-- .element: class="fragment fade-in-then-semi-out" -->
-- Use newer, improved formats like webp. <!-- .element: class="fragment fade-in-then-semi-out" -->
-- Lazy loading with a tool like lazysizes <!-- .element: class="fragment fade-in-then-semi-out" -->
-
-<br>
-<br>
-<small>
-  Check out <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images">Responsive images</a> on MDN &amp; <a href="https://abookapart.com/products/image-performance">Image Performance</a> by Mat Marquis.
-  <br><a href="https://www.npmjs.com/package/sharp">Sharp</a> &amp; <a href="https://www.imagemagick.org/script/index.php">Imagemagick</a> are great for resizing images. Examples at <a href="https://web.dev/fast/serve-responsive-images">Serve Responsive Images</a>. Use cwebp for creating webp files (<a href="https://developers.google.com/speed/webp/docs/cwebp">docs</a>).
-</small>
 
 ---
 
