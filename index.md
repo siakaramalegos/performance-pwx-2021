@@ -174,7 +174,7 @@ Note: Target is 75% of loads. "Core Web Vitals are the subset of Web Vitals that
 ---
 
 <!-- .slide: data-background="./images/yellow-camera.jpg" -->
-<h1 class="title" style="text-align:left;color: rgb(214, 61, 31);">Optimized, <br><span class="translucent">Responsive </span><br>Images</h1>
+<h1 class="title" style="text-align:left;color: rgb(214, 61, 31);">Images</h1>
 
 ---
 
@@ -200,34 +200,6 @@ Note: actually down from 50% - maybe due to increased use of lazy loading
 
 ---
 
-
-"18% of global Android Chrome users have Lite Mode enabled (aka Save-Data)"
-
-<img src="./images/save-data-usage.jpg" alt="" style="border:none">
-
-<small>https://twitter.com/colinbendell/status/1265675813204172810</small>
-
-Note: true numbers higher https://twitter.com/addyosmani/status/1265677876608655361
-
----
-
-## Image Goals
-
-1. Users shouldn't download unnecessary bytes 💾 <!-- .element: class="fragment fade-in-then-semi-out" -->
-2. Our images should look good 💅🏼 <!-- .element: class="fragment fade-in-then-semi-out" -->
-3. Stop the layout shift ✋🏽<!-- .element: class="fragment fade-in-then-semi-out" -->
-
----
-
-## Responsive &amp; Optimized Toolbox 🧰
-
-- Best file format <!-- .element: class="fragment fade-in-then-semi-out" -->
-- Right size and resolution <!-- .element: class="fragment fade-in-then-semi-out" -->
-- Art direction <!-- .element: class="fragment fade-in-then-semi-out" -->
-- Lazy loading <!-- .element: class="fragment fade-in-then-semi-out" -->
-
----
-
 <!-- .slide: data-background="./images/disk-drive.jpg" class="dark-highlighter" -->
 
 # File Format <!-- .element: class="dark-background" style="color:#fecf16" -->
@@ -242,75 +214,7 @@ Note: Responsive Issues Community Group (RICG) chair. Getting the right image fo
 
 ---
 
-## Raster vs Vector
-
-<img src="./images/raster_vs_vector.png" alt="Raster vs Vector scaling" width="80%">
-
-<small>https://commons.wikimedia.org/wiki/File:Bitmap_VS_SVG.svg</small>
-
-Note: Raster images contain a set of data about a 2D grid of pixels. Vectors are a system of coordinates and "vectors" than can be redrawn at any size. Rasters are good for photo-realism. Raster file formats are really just different compression methods.
-
----
-
-<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="turquoise" /><circle cx="150" cy="100" r="80" fill="rebeccapurple" /><text x="150" y="125" font-size="60" text-anchor="middle" fill="white">SVG</text></svg>
-
-```xml
-<svg version="1.1"
-     width="300" height="200"
-     xmlns="http://www.w3.org/2000/svg">
-
-  <rect width="100%" height="100%" fill="turquoise" />
-  <circle cx="150" cy="100" r="80" fill="rebeccapurple" />
-  <text x="150" y="125" font-size="60"
-        text-anchor="middle" fill="white">SVG</text>
-</svg>
-```
-
-Note: (vector) - best for limited colors and sharp lines (e.g., logos)
-
----
-
-## GIF
-
-Just. Don't.
-
-<video controls width="700" autoplay loop>
-  <source src="./images/dont.mp4" type="video/mp4">
-  Sorry, your browser doesn't support embedded videos.
-</video>
-
-Note: (lossy) - fun but terrible. Use SVG or video instead. Inspect this (or on Twitter) and see that's it's video.
-
----
-
-## PNG: photo-like images with transparency
-
-<img class="plain" src="./images/harry.png" alt="cut out image of my dog with no/transparent background">
-
-Note: (lossless) - best for photo-realistic with transparency. **Lossless compression** - like using ZIP for a file but all the data is still saved.
-
----
-
-## JPG: photo-like images with no transparency
-
-<img class="plain" src="./images/harry-garden.jpg" alt="photo of my dog in a garden" width=600px>
-
-Note: JPG is your photo workhorse. It's a lossy format that was created to compress by hue - in a way that human eyes are less likely to detect, so it's smaller than PNG. Use for all:
-
----
-
-## Progressive JPG
-
-<img class="plain" width=600px src="./images/sleepy-purrito-baseline-timeline.jpeg" alt="cats rendering in a raster way">
-<img class="plain" width=600px src="./images/sleepy-purrito-progressive-timeline.jpeg" alt="cats rendering from blurry to sharp">
-
-<small>[What is a progressive JPEG?](https://www.liquidweb.com/kb/what-is-a-progressive-jpeg/) by Liquid Web</small>
-
-Note: hard to tell when an image has actually finished loading. You might even get a bad impression from a website because “the photos look blurry” (while in fact the site was still loading and you only saw a progressive preview of the photos)
-
----
-
-## WEBP: Best of both worlds
+## WEBP: Increased cross-browser availability
 
 <img class="plain" src="./images/caniuse-webp.png" alt="caniuse page for webp showing not much safari support">
 
@@ -357,38 +261,7 @@ Note: Raster file formats are really just different compression methods. **SVG**
 
 ---
 
-## Demystifying DPR (device pixel ratio)
-
-On a 2x screen, a displayed image width of 100px needs a 200px file/natural width image to look good.
-
-<img class="plain" src="./images/bantha-resolution.jpeg" alt="Dog in a bantha costume at multiple resolutions from blurry to clear">
-
-Note: n this exaggerated example, the natural width of the bantha doggo on the left is 150px, then 300px, then 600px. The display width is 300px, and my screen has a DPR (device pixel ratio) of 2. 150px is fuzzy. Looking closely, the middle image is not the best quality either.
-
----
-
-## `srcset`
-
-```html
-<img
-  srcset="
-    https://placekitten.com/300/200 300w,
-    https://placekitten.com/600/400 600w
-  "
-  src="https://placekitten.com/300/200"
-  alt="cute random kitten"
-/>
-```
-
-- States a set of images and the natural size of each image <!-- .element: class="fragment fade-in-then-semi-out" -->
-- Browser assumes a display width of 100vw <!-- .element: class="fragment fade-in-then-semi-out" -->
-- Files are candidates, not commands. <!-- .element: class="fragment fade-in-then-semi-out" -->
-
-Note: States a set of images and the natural size of each image. Browser assumes a display width of 100vw. Files are candidates, not commands.. Alternatively, use x-descriptors.
-
----
-
-## `sizes`
+## `srcset` & `sizes`
 
 ```html
 <img
@@ -404,13 +277,6 @@ Note: States a set of images and the natural size of each image. Browser assumes
   alt="cute random kitten"
 />
 ```
-
-- States display width for a set of media conditions <!-- .element: class="fragment fade-in-then-semi-out" -->
-- Order matters! First match is used. <!-- .element: class="fragment fade-in-then-semi-out" -->
-- No media condition for the last one (default for no match). <!-- .element: class="fragment fade-in-then-semi-out" -->
-- Add analogous CSS. <!-- .element: class="fragment fade-in-then-semi-out" -->
-
-Note: Format is [media condition][space][display width]. Once again, these are candidates, not commands. We are letting the browser choose which file to use ultimately.
 
 ---
 
@@ -429,37 +295,6 @@ Note: Furthermore, nowadays most mobile screens are 2x and 3x so we can simplify
 
 ---
 
-# 🎨 Art Direction 🎨
-
-<img src="./images/art-direction.png" alt="examples of the same image on multiple devices" style="border:none;box-shadow:none;">
-
-Note: (1) Art direction is a technique for drawing attention to the most important parts, or targeting specific features of an image, even when it’s viewed on different devices or platforms. (2) So how do we do art direction?
-
----
-
-## `<picture>`
-
-- Provide multiple images based on device size, resolution, orientation, and more.
-- Use `media` attribute for viewport spec. First match is used.
-- Always provide `<img>` last for no match or browsers that do not support `<picture>` and `<source>`
-
-```html
-<picture>
-  <source media="(min-width: 800px)"
-          srcset="wide_800.jpg 800w,
-                  wide_1600.jpg 1600w">
-  <source media="(min-width: 400px)"
-          srcset="narrow_400.jpg 400w,
-                  narrow_800.jpg 800w">
-  <img src="wide_800.jpg"
-       alt="Woman with dog looking at Grand Canyon">
-</picture>
-```
-
-Note: (1) In this `picture` tag, we have 2 sources and an img. Older browsers simply ignore the picture and source tags and use the img tag. (2) The video tag also works this way and can have multiple `source` tags
-
----
-
 ## Bleeding-Edge File Formats
 
 ```html
@@ -470,34 +305,28 @@ Note: (1) In this `picture` tag, we have 2 sources and an img. Older browsers si
 </picture>
 ```
 
-- Browser uses the first compatible file type.
-- Set `<img>` `src` to a format supported by all browsers.
-
-Note: Browser uses the first compatible file type. Set `<img>` `src` to a format supported by all browsers.
-
 ---
 
 ## `webp`, `srcset`, &amp; `sizes`, oh my!
 
 ```html
 <picture>
+  <source srcset="./images/sofa_pug_400.avif 400w,
+                  ./images/sofa_pug_800.avif 800w"
+          sizes="(max-width: 320px) 280px, 400px"
+          type="image/avif" />
   <source srcset="./images/sofa_pug_400.webp 400w,
                   ./images/sofa_pug_800.webp 800w"
+          sizes="(max-width: 320px) 280px, 400px"
           type="image/webp" />
   <img src="./images/sofa_pug_400.jpg"
         srcset="./images/sofa_pug_400.jpg 400w,
                 ./images/sofa_pug_800.jpg 800w"
-        sizes="400px"
+        sizes="(max-width: 320px) 280px, 400px"
         width="400px"
         alt="pug on a sofa looking sad" />
 </picture>
 ```
-
----
-
-<!-- .slide: data-background="./images/photo-collage.jpg" class="dark-highlighter" -->
-
-# Generating Images & Markup <!-- .element: style="color:#fecf16;" -->
 
 ---
 
@@ -601,6 +430,8 @@ aspect-ratio: 0.5;
 
 ---
 
+## Finally coming to Safari Tech Preview!
+
 <img src="./images/caniuse-loading.png" alt="Can I Use shows 60.9% compatibility with loading attr" width="80%" class="no-outline">
 
 <small>[caniuse](https://caniuse.com/loading-lazy-attr)</small>
@@ -609,449 +440,149 @@ Note: It's getting closer! Last time I checked, it was around 60%
 
 ---
 
-In the meantime, use a tool like [lazysizes](https://github.com/aFarkas/lazysizes).
-
----
-
-## Image Optimization Toolbox
-
-- Use the right image type (png vs jpg, gif vs video). <!-- .element: class="fragment fade-in-then-semi-out" -->
-- Serve the right size image for the user's screen width and device pixel ratio <!-- .element: class="fragment fade-in-then-semi-out" -->
-- Compress images with a tool like ImageOptim, TinyPNG, SVGOMG, or use a webpack plugin like imagemin-webpack-plugin <!-- .element: class="fragment fade-in-then-semi-out" -->
-- Use newer, improved formats like webp and avif. <!-- .element: class="fragment fade-in-then-semi-out" -->
-- Lazy loading, native or with a tool like lazysizes <!-- .element: class="fragment fade-in-then-semi-out" -->
-
-<br>
-<br>
-<small>
-  Check out <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images">Responsive images</a> on MDN &amp; <a href="https://abookapart.com/products/image-performance">Image Performance</a> by Mat Marquis.
-  <br><a href="https://www.npmjs.com/package/sharp">Sharp</a> &amp; <a href="https://www.imagemagick.org/script/index.php">Imagemagick</a> are great for resizing images. Examples at <a href="https://web.dev/fast/serve-responsive-images">Serve Responsive Images</a>. Use cwebp for creating webp files (<a href="https://developers.google.com/speed/webp/docs/cwebp">docs</a>).
-</small>
-
----
-
 # ⌚ Latency ⌚
 
-Note: Who is brave enough to admit they don't really know what that means?
+---
+
+
+> Bandwidth is the width of the tube and latency is its length.
+
+<small>[A brief guide to using WebpageTest](https://davidea.st/articles/a-brief-guide-to-webpagetest)</small>
 
 ---
 
-<section>
-  <h2>latency</h2>
-  <p>/ˈlātənsē/</p>
-  <ol>
-	  <li class="fragment fade-in-then-semi-out">the state of existing but not yet being developed or manifest; concealment.
-      <br /><small><em>"tension, and the latency of violence, make the greatest impressions"</em></small></li>
-	  <li class="fragment fade-in-then-semi-out">the delay before a transfer of data begins following an instruction for its transfer.
-      <br /><small><em>"poor performance due to network latency"</em></small></li>
-  </ul>
-</section>
-
-Note: http://www.grandrapidsohio.com/, https://www.clioandcalliope.com/
+For large or content-heavy sites like Netflix, bandwidth is critical. For everyone else, it's the **latency**.
 
 ---
 
-## HTTP/1.1
+<iframe src="https://player.vimeo.com/video/14439742" width="640" height="480" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 
-<img src="./images/http1-waterfall.png" alt="HTTP/1.1 waterfall showing only 6 downloads at one time" />
-
-<small>https://deliciousbrains.com/performance-best-practices-http2/</small>
-
-Note: Starts downloading assets as TCP connections become available
+<small><a href="https://vimeo.com/14439742">Packet Flight: HTTP request @ 40X</a> from <a href="https://vimeo.com/carlosb">Carlos Bueno</a> on <a href="https://vimeo.com">Vimeo</a>. [TCP congestion control](https://en.wikipedia.org/wiki/TCP_congestion_control)</small>
 
 ---
 
-## HTTP/2
+<img class="plain" src="./images/tcp-slow-start.webp">
 
-<img src="./images/http2-waterfall.png" alt="HTTP/2 waterfall shows all files downloading at one time" />
+<small>[What Is TCP Slow Start](https://www.keycdn.com/support/tcp-slow-start)</small>
 
-<small>https://deliciousbrains.com/performance-best-practices-http2/</small>
-
-Note: In addition, header compression. HTTP2 server push has not lived up to the promise, but it's still a new area. For the most part, need to use https.
 
 ---
 
-[ishttp2fastyet.com/](http://ishttp2fastyet.com/)
+## 103 Early Hints
+
+> 103s are served to clients while a 200 OK (or error) response is being prepared (the so-called “server think time”), and contain hints on which assets will likely be needed to fully render the web page.
+
+<small>[Early Hints: How Cloudflare Can Improve Website Load Times by 30%](https://blog.cloudflare.com/early-hints/), [Chrome Status: Feature: 103 Early Hints for Navigation](https://www.chromestatus.com/feature/5207422375297024)</small>
+
+
+Note: "the page load could have been accelerated had the browser known, prior to receiving the full response, that the stylesheet and the four subsequent scripts will be needed to render the page. Early Hints avoids these issues by “hinting” (vs. push being dictatorial) to clients which assets they should load, allowing them to prioritize resource loads with more complete information about what they will likely need to render a page, what they have cached, and other heuristics."
 
 ---
 
-<img src="./images/https-tweet.png" alt="Site with and without https - without has third party stuff added" height="550px" />
-
-<small>https://twitter.com/jaffathecake/status/1044121129848377344</small>
+<img class="plain" src="./images/Early-hints-diagram-1.png">
 
 ---
 
-# Fonts
+## Priority Hints
 
-<img class="nooutline" width="50%" src="./images/fonts.png" alt="Screenshot of a Google fonts font option" />
-
----
-
-## Webfonts
-
-<ul class="plus-minus">
-  <li class="plus fragment fade-in-then-semi-out">Hosted on fast and reliable CDNs</li>
-  <li class="plus fragment fade-in-then-semi-out">Can provide optimized variants based on user's browser</li>
-  <li class="plus fragment fade-in-then-semi-out"><del>Opportunity for shared caching on popular fonts</del></li>
-  <li class="plus fragment fade-in-then-semi-out">We now have control over FOUT and FOIT!</li>
-  <li class="minus fragment fade-in-then-semi-out">Minumum of 2 separate requests</li>
-  <li class="minus fragment fade-in-then-semi-out">Can't use resource hints on the font file</li>
-  <li class="minus fragment fade-in-then-semi-out">Doesn't take advantage of HTTP2 multiplexing</li>
+```html
+<!-- Manage in-viewport priorities -->
+<img src="lcp-image.jpg" importance="high">
+<img src="/images/in_viewport_but_not_important.svg" importance="low">
+<ul class="carousel">
+  <img src="img/carousel-1.jpg" importance="high">
+  <img src="img/carousel-2.jpg" importance="low">
+  <img src="img/carousel-3.jpg" importance="low">
+  <img src="img/carousel-4.jpg" importance="low">
 </ul>
 
----
-
-<img class="nooutline" src="./images/fonts-css.png" alt="Google fonts load waterfall showing wasted time from loading from css">
-
-<small>[WebPageTest waterfall](http://webpagetest.org/customWaterfall.php?test=190406_EP_2dc139e2f92f617a2ec5f39624d6c8ca&run=2&width=930)</small>
-
-Note: pause here and ask what else seems wasteful - calling from css and connection time to 2nd domain
-
----
-
-## Loading Google Fonts from CSS
-
-```css
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+<!-- Initiate an early fetch for a resource, but also deprioritize it -->
+<link rel="preload" href="/js/script.js" as="script" importance="low">
 ```
 
-<img class="nooutline" src="./images/webfonts_css.png" alt="Google fonts load waterfall showing wasted time from loading from css">
-
-<small>[WebPageTest waterfall](http://webpagetest.org/customWaterfall.php?test=190406_EP_2dc139e2f92f617a2ec5f39624d6c8ca&run=2&width=930)</small>
-
-Note: pause here and ask what else seems wasteful - the connection time to fonts.gstatic.com
+<small>[Optimizing resource loading with Priority Hints](https://web.dev/priority-hints/)</small>
 
 ---
 
-## Loading Google Fonts from HTML
+"18% of global Android Chrome users have Lite Mode enabled (aka Save-Data)"
 
-```html
-<link href="https://fonts.googleapis.com/css?family=Muli:400"
-      rel="stylesheet">
-```
+<img src="./images/save-data-usage.jpg" alt="" style="border:none">
 
-<img class="nooutline" src="./images/fonts-html.png" alt="Google fonts load waterfall showing wasted time from loading from css">
+<small>https://twitter.com/colinbendell/status/1265675813204172810</small>
 
----
-
-## Loading Google Fonts from HTML
-
-```html
-<link href="https://fonts.googleapis.com/css?family=Muli:400"
-      rel="stylesheet">
-```
-
-<img class="nooutline" src="./images/fonts-html-annotated.png" alt="Google fonts load waterfall showing wasted time from loading from extra connection time">
+Note: true numbers higher https://twitter.com/addyosmani/status/1265677876608655361
 
 ---
 
-<img src="./images/resource-hints.jpg_large" alt="Resource hints cheatsheet find pdf at https://storage.googleapis.com/resource-hints/resource-hints-cheatsheet.pdf" />
+## `prefers-reduced-data`...<br> is still experimental
 
-<small>https://twitter.com/addyosmani/status/743571393174872064?lang=en</small>
+<img src="./images/caniuse-reduced-data.png" alt="Can I Use shows no compatibility with prefers reduced data" width="80%" class="no-outline">
 
-Note: dns-prefetch only does the dns part of the prefetch, but on the plus side, it doesn't expire after a short amount of time.
-
----
-
-## Loading Google Fonts with preconnect to fonts.gstatic.com
-
-```html
-<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-<link href="https://fonts.googleapis.com/css?family=Muli:400"
-      rel="stylesheet">
-```
-
-<img class="nooutline" src="./images/preconnect.png" alt="Google fonts load waterfall showing preconnect">
+<small>[caniuse](https://caniuse.com/mdn-css_at-rules_media_prefers-reduced-data)</small>
 
 ---
 
-## Self-Hosted Fonts
+<!-- .slide: data-background="./images/AA-font.jpg" -->
+
+---
+
+## FOUT
+
+<video autoplay loop>
+  <source src="./images/fout.mp4" type="video/mp4">
+  Oops, video not supported
+</video>
+
+---
+
+> The style doesn’t matter so much, it’s that it has to flow the same way.
+
+— Tim Brown, Twitter
+
+---
+
+## Font Style-Matcher by Monica Dinculescu
+
+[meowni.ca/font-style-matcher/](https://meowni.ca/font-style-matcher/)
+
+---
+
+## Enter CSS font descriptors
 
 ```css
 @font-face {
-  font-family: "Muli";
-  font-style: normal;
+  font-family: 'Lato';
+  src: url('/static/fonts/Lato.woff2') format('woff2');
   font-weight: 400;
-  src: local("Muli Regular"), local("Muli-Regular"),
-    url("./fonts/muli-v13-latin-regular.woff2") format("woff2"),
-    url("./fonts/muli-v13-latin-regular.woff") format("woff");
 }
-```
 
-<img class="nooutline" src="./images/fonts-local.png" alt="Google fonts load waterfall showing local font waiting to load until after CSS">
-
-<small>[WebPageTest waterfall](http://webpagetest.org/customWaterfall.php?test=190406_S0_0a529e9ce6086cbea8e3aadc942ddbf6&run=2&width=930)</small>
-
----
-
-## Self-Hosted Fonts
-
-```css
 @font-face {
-  font-family: "Muli";
-  font-style: normal;
-  font-weight: 400;
-  src: local("Muli Regular"), local("Muli-Regular"),
-    url("./fonts/muli-v13-latin-regular.woff2") format("woff2"),
-    url("./fonts/muli-v13-latin-regular.woff") format("woff");
+    font-family: "Lato-fallback";
+    size-adjust: 97.38%;
+    ascent-override: 99%;
+    src: local("Arial");
+}
+
+h1 {
+    font-family: Lato, Lato-fallback, sans-serif;
 }
 ```
 
-<img class="nooutline" src="./images/no-preload.png" alt="Google fonts load waterfall showing local font waiting to load until after CSS">
+<small>[A New Way To Reduce Font Loading Impact: CSS Font Descriptors](https://www.smashingmagazine.com/2021/05/reduce-font-loading-impact-css-descriptors/), [Automatic Font Matching](https://deploy-preview-15--upbeat-shirley-608546.netlify.app/perfect-ish-font-fallback/?font=Montserrat). caniuse: [size-adjust](https://caniuse.com/mdn-css_at-rules_font-face_size-adjust), [ascent-override](https://caniuse.com/mdn-css_at-rules_font-face_ascent-override), [descent-override](https://caniuse.com/mdn-css_at-rules_font-face_descent-override), [line-gap-override](https://caniuse.com/mdn-css_at-rules_font-face_line-gap-override)</small>
 
 ---
 
-## Preloading self-hosted fonts
+<img class="no-outline" src="./images/Jimmie-Durhan-Installation.jpeg" alt="Sculpture of a boulder crushing a car with words crudely pasted over - JS is in large letters over the boulder and 'user just wanting to read a blog post' is in smaller letters over the car'" width="80%">
 
-```html
-<link rel="preload" as="font" type="font/woff2"
-  href="./fonts/muli-v12-latin-regular.woff2" crossorigin>
-
-<link rel="preload" as="font" type="font/woff2"
-  href="./fonts/muli-v12-latin-700.woff2" crossorigin>
-```
-
-<img src="./images/font_preload.png" alt="Self-hosted waterfall showing preload">
-
-<small>Note that `preload` loads a resource whether used or not. Only preload resources that are needed on a particular page, and limit how many you preload.</small>
-
-Note: `rel="preload"` tells the browser to declaratively fetch the resource but not “execute” it (our CSS will queue usage). `as="font"` tells the browser what it will be downloading so that it can set an appropriate priority. Without it, the browser would set a default low priority. `type="font/woff2` tells the browser the file type so that it only downloads the resource if it supports that file type. `crossorigin` is required because fonts are fetched using anonymous mode CORS.
+<small>Original art by [Jimmie Durhan](https://hirshhorn.si.edu/explore/jimmie-durham-still-life-spirit-xitle/), please forgive the meme I created over it</small>
 
 ---
 
-[Shared Cache is Going Away](https://www.jefftk.com/p/shared-cache-is-going-away)
+## New trends for managing 3rd parties
 
-<small>[Chrome](https://www.chromestatus.com/feature/5730772021411840), [Firefox](https://bugzilla.mozilla.org/show_bug.cgi?id=1536058), [Safari](https://bugs.webkit.org/show_bug.cgi?id=110269)</small>
+<img class="no-outline" src="./images/tweet-third-parties.png" alt="Third-party JavaScript can have a heavy impact on page load performance. *When* you load such scripts can make a big difference (e.g. during idle time vs. asap). To help, we built a Script Component for Next.js: http://bit.ly/nextscript. Any feedback on it is welcome." width="50%">
 
----
-
-## FOIT
-
-<img src="./images/FOIT.png" alt="FOIT in action — note the missing navbar text in the filmstrip screenshot (throttled to slow 3G)">
-
-Note: FOIT in action — note the missing navbar text in the filmstrip screenshot (throttled to slow 3G)
-
----
-
-## `font-display`
-
-<img src="./images/font-display.png" alt="comparison of different font-display values" width="80%">
-
-<small>https://font-display.glitch.me/</small>
-
-Note: add the `font-display` property to the `@font-face` declaration
-
----
-
-<img src="./images/googlefonts-fontdisplay.png" class="nooutline" alt="Shipped! @GoogleFonts now let's you control web font loading using `font-display`. Say hello to the `display` parameter " width="55%">
-
-
-<small>https://twitter.com/addyosmani/status/1128548064287952896/</small>
-
----
-
-## More Latency and Caching Strategies
-
-- Use appropriate **caching headers**
-- Use **service workers** for precaching and offline optimization
-- **Lazy-load** non-critical assets (below-the-fold assets like images, components in JavaScript, etc.)
-- Use SVGs instead of icon fonts or subset the font.
-- Inline critical CSS with [Critical](https://github.com/addyosmani/critical) and asynchronously load non-critical CSS with [loadCSS](https://github.com/filamentgroup/loadCSS).
-
-<small>[Preload, Prefetch And Priorities in Chrome](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf) by Addy Osmani</small>
-
-Note: PRPL pattern - push, render, pre-cache, lazy-load
-
----
-
-## More resources mentioned
-
-- [Making Google Fonts Faster⚡](https://sia.codes/posts/making-google-fonts-faster/) - includes how do download and host locally
-- [Google Analytics + caniuse = *MAGIC*](https://sia.codes/posts/google-analytics-caniuse-magic/) - how to import your Google Analytics data into caniuse
-- [subfont](https://github.com/Munter/subfont)
-
----
-
-# Download cost:<br>💰 JavaScript 💰
-
-Note: Are all assets created equally?
-
----
-
-<iframe width="990.6990950226244" height="482" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTlTFx0oq6iA73uPBd4X1kaF05-R82KHMMGF7wzgvPTvdgMsPyjKZk5fAPOmPhc33g_Zoul7EsB2Cg9/pubchart?oid=1765333686&amp;format=image"></iframe>
-
-<small>Adapted from [The Cost of JavaScript](https://medium.com/dev-channel/the-cost-of-javascript-84009f51e99e) by Addy Osmani</small>
-
----
-
-## TL;DR: Ship less code
-
-- less code = less load + less parse/compile
-- holy grail = prioritize only what's needed in view
-
----
-
-<!-- .slide: data-background="./images/newspaper.jpg" -->
-
-<h1 class="dark-background">
-  <span class="highlighter">Case Study</span>
-</h1>
-
-Note: Run a Network profile w/o throttling on one of the following: cnn.com, bbc.com, nytimes.com. Run a Performance profile and check out Summary pane for JS execution time. Click on the Bottom-up pane and group by feature, especially domain and product. Which 3rd-party scripts are the worst offenders? Go back to the Network tab, right-click on one or more of your worst offenders, and select "Block request domain" - edit to use *.domain. Go back to the Performance tab and re-run the profile on reload. Use the timeline sessions list to switch back and forth and compare the results. How can we use this info to improve performance? Photo by Hayden Walker on Unsplash https://unsplash.com/photos/ihiEd-_4TNY
-
----
-
-## Module Imports
-
-```javascript
-// Big = 527kb
-import _ from 'lodash';
-
-// Big = 527kb
-import {isEmpty} from 'lodash';
-
-// Little = 24kb
-import isEmpty from 'lodash/isEmpty';
-import { upperCase } from 'lodash-es';
-
-// Big = 544kb
-import moment from 'moment';
-
-// Little = 11kb
-import addMinutes from 'date-fns/add_minutes';
-import { addDays, format } from 'date-fns/fp'
-```
-
-<small>Use Moment? Try [date-fns](https://date-fns.org/) instead.</small>
-
-Note: Tree-shaking can help do this for us so we don't have to worry so much about doing our imports "correctly".
-
----
-
-## Client vs Server vs Progressive Rendering
-
-<iframe width="749.4849246231156" height="463.3975" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTlTFx0oq6iA73uPBd4X1kaF05-R82KHMMGF7wzgvPTvdgMsPyjKZk5fAPOmPhc33g_Zoul7EsB2Cg9/pubchart?oid=2121502741&amp;format=interactive"></iframe>
-
-<small>Inspired by https://twitter.com/aerotwist/status/729712502943174657</small>
-
----
-
-## Client vs Server vs Progressive Rendering
-
-<iframe width="749.4849246231156" height="463.3975" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTlTFx0oq6iA73uPBd4X1kaF05-R82KHMMGF7wzgvPTvdgMsPyjKZk5fAPOmPhc33g_Zoul7EsB2Cg9/pubchart?oid=1546390226&amp;format=interactive"></iframe>
-
-<small>Inspired by https://twitter.com/aerotwist/status/729712502943174657</small>
-
-Note: Paul Lewis coined the term "uncanny valley". Optimizing for content visibility instead of time to interactivity can leave users more frustrated.
-
----
-
-## Client vs Server vs Progressive Rendering
-
-<iframe width="749.4849246231156" height="463.3975" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTlTFx0oq6iA73uPBd4X1kaF05-R82KHMMGF7wzgvPTvdgMsPyjKZk5fAPOmPhc33g_Zoul7EsB2Cg9/pubchart?oid=1471728610&amp;format=interactive"></iframe>
-
-<small>Inspired by https://twitter.com/aerotwist/status/729712502943174657</small>
-
-Note: PRPL - push minimal code for initial route, render route and get interactive, pre-cache using service workers, and lazy-load async routes. Progressive bootstrapping - Send down a minimally functional page (composed of just the HTML/JS/CSS needed for the current route). As more resources arrive, the app can lazy-load and unlock more features.
-
----
-
-## Code Splitting Strategies
-
-1. By **entry point** manually with `entry` config (better combined with #2 to prevent dupes)
-2. Prevent duplication and **split chunks** with [SplitChunksPlugin](https://webpack.js.org/plugins/split-chunks-plugin/)
-3. **Dynamic imports** via inline functions that are only imported when needed
-
-<small>[webpack guide on code splitting](https://webpack.js.org/guides/code-splitting)</small>
-
----
-
-## Prefetch chunks while idle
-
-```javascript
-import('marked' /* webpackChunkName: "marked", webpackPrefetch: true */)
-```
-
-<small>Read more: [`<link rel="prefetch/preload">` in webpack](https://medium.com/webpack/link-rel-prefetch-preload-in-webpack-51a52358f84c) by Tobias Koppers</small>
-
-Note: caveats about the prefetch queue even if suddenly needed now also definitely downloads so don't do too much of this
-
----
-
-## Optimizing Time to Interactive
-
-- Analyze your loads and bundles! Don't over-optimize! <!-- .element: class="fragment fade-in-then-semi-out" -->
-- Only ship what's immediately needed - use code splitting, pre-caching, and deferred or lazy loading. <!-- .element: class="fragment fade-in-then-semi-out" -->
-- Minify to speed up both download and parse/compile. <!-- .element: class="fragment fade-in-then-semi-out" -->
-- Compress with gzip or brotli. <!-- .element: class="fragment fade-in-then-semi-out" -->
-- Remove unused code with tree shaking or using module imports effectively. <!-- .element: class="fragment fade-in-then-semi-out" -->
-- Set up performance budgets to prevent performance creep. <!-- .element: class="fragment fade-in-then-semi-out" -->
-
-<small>https://webpack.js.org/configuration/performance/</small>
-
----
-
-<!-- .slide: data-background="./images/vintage-suitcases.jpg" -->
-
-<h1 class="dark-background">
-  <span class="highlighter">Vintage Bundles</span>
-</h1>
-
-Note: Photo by Erwan Hesry on Unsplash https://unsplash.com/photos/Q34YB7yjAxA
-
----
-
-## Differential Serving, a.k.a. Serve modern code to modern browsers
-
-```html
-<!-- Browsers with ES module support load this file. -->
-<script type="module" src="main.mjs"></script>
-
-<!-- Older browsers load this file (and module-supporting -->
-<!-- browsers know *not* to load this file). -->
-<script nomodule src="main.es5.js"></script>
-```
-
----
-
-## The Cost of Unnecessary Transpiling
-
-<table>
-  <thead>
-    <tr>
-      <th>Version</th>
-      <th>Size <br />(minified)</th>
-      <th>Size <br />(minified + gzipped)</th>
-      <th>Parse/eval time (avg)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>ES2015+</td>
-      <td>80K</td>
-      <td><strong>21K</strong></td>
-      <td><strong>172ms</strong></td>
-    </tr>
-    <tr>
-      <td>ES5</td>
-      <td>175K</td>
-      <td><strong>43K</strong></td>
-      <td><strong>367ms</strong></td>
-    </tr>
-  </tbody>
-</table>
-
-<small>https://philipwalton.com/articles/deploying-es2015-code-in-production-today/</small>
-
-Note: We transpile and polyfill most code, but most users are on modern browsers. So why are we shippping Unnecessary code? What's the impact?  Webpack can create 2 bundles for you - transpiled to ES5 and not-transpiled ES2015+. These are the results from a small blog app - remember since JS is most expensive asset this affects not just download but parse and compile time. <strong>Bigger apps mean bigger gains</strong>. No time to go through how, but this article goes through the steps. (test using script type=module, set up separate webpack config and need to include modules
-
----
-
-## Differential Serving Resources
-
-- [Deploying ES2015+ Code in Production Today](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/) by Philip Walton
-- [Doing Differential Serving in 2019](https://calendar.perfplanet.com/2018/doing-differential-serving-in-2019/) by Jeremy Wagner and [repo](https://github.com/malchata/diff-serving)
-- [Serve modern code to modern browsers for faster page loads](https://web.dev/fast/serve-modern-code-to-modern-browsers) by Houssein Djirdeh (and click through for codelab)
+<small>https://twitter.com/addyosmani/status/1467033429988429826</small>
 
 ---
 
