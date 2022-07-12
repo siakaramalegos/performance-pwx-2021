@@ -48,7 +48,7 @@ revealOptions:
 
 > Starbucks implemented a 2x faster time to interactive resulting in a 65% increase in rewards registrations.
 
-<small>[Chrome Dev Summit 2018](https://www.youtube.com/watch?v=Xryhxi45Q5M&t=1113s&index=6&list=PLNYkxOF6rcIDjlCx1PcphPpmf43aKOAdF )</small>
+<small>[Chrome Dev Summit 2018](https://www.youtube.com/watch?v=Xryhxi45Q5M&t=1113s&index=6&list=PLNYkxOF6rcIDjlCx1PcphPpmf43aKOAdF)</small>
 
 ---
 
@@ -58,11 +58,9 @@ revealOptions:
 
 ---
 
-> Speed is now used as a ranking factor for mobile searches.
+> Speed is now a ranking factor for Google Search and Ads.
 
-<small>https://developers.google.com/web/updates/2018/07/search-ads-speed</small>
-
-Note: In 2016, Doubleclick by Google released a report saying that 53% of mobile sites are abandoned if pages take longer than 3 seconds to load.
+<small>https://developer.chrome.com/blog/search-ads-speed/</small>
 
 ---
 
@@ -81,6 +79,57 @@ The internet consumes 416.2 TWh of electricity per year. A 10% savings would be 
 <small>[How is your website impacting the planet?](https://www.websitecarbon.com/), [Greenhouse Gas Equivalencies Calculator](https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator)</small>
 
 Note: Most of the energy is consumed by the network and data center, not users' devices.
+
+---
+
+# 📈 Metrics 📈
+
+---
+
+> When optimizing for speed, <br>**user experience** should always <br>be your primary metric.
+
+---
+
+## User experience
+
+1. When can I see the page? <!-- .element: class="fragment fade-in-then-semi-out" -->
+2. When can I interact with it? <!-- .element: class="fragment fade-in-then-semi-out" -->
+3. Does it respond to my interactions? <!-- .element: class="fragment fade-in-then-semi-out" -->
+4. Is it delightful? <!-- .element: class="fragment fade-in-then-semi-out" -->
+
+---
+
+## Core Web Vitals
+
+<img src="./images/core_web_vitals.png" class="plain">
+
+<small>[Web Vitals](https://web.dev/vitals/), [The Science Behind Web Vitals](https://blog.chromium.org/2020/05/the-science-behind-web-vitals.html)</small>
+
+Note: Target is 75% of loads. "Core Web Vitals are the subset of Web Vitals that apply to all web pages, should be measured by all site owners, and will be surfaced across all Google tools. Each of the Core Web Vitals represents a distinct facet of the user experience, is measurable in the field, and reflects the real-world experience of a critical user-centric outcome." Note modifications over time to improve.
+
+---
+
+## New metric!
+
+**Interaction to Next Paint** (INP): new, experimental metric that assesses how fast a page responds to user input
+
+- Visual feedback is important<!-- .element: class="fragment fade-in" -->
+- Measures overall interaction latency<!-- .element: class="fragment fade-in" -->
+- Duration from user interaction until next frame is presented after event handlers executed<!-- .element: class="fragment fade-in" -->
+- "Good" is currently < 200 ms<!-- .element: class="fragment fade-in" -->
+- Impacted by too much JS, other non-JS work on the main thread running concurrently with user interactions<!-- .element: class="fragment fade-in" -->
+
+<small>[Interaction to Next Paint (INP)](https://web.dev/inp/)</small>
+
+Note: measures the worst interaction when < 50 or the 98th percentile
+
+---
+
+## New metric under evaluation
+
+_Provide feedback now!_
+
+- [Smoothness/animation metric](https://web.dev/smoothness/)
 
 ---
 
@@ -122,10 +171,12 @@ Note: Most of the energy is consumed by the network and data center, not users' 
 
 ## New Lab Testing Tools/Features
 
-- [Render-blocking JS and CSS flags](https://sia.codes/posts/render-blocking-resources/#how-do-i-test-my-website-for-render-blocking-resources%3F) in Webpagetest
+- [Render-blocking JS and CSS flags](https://sia.codes/posts/render-blocking-resources/#how-do-i-test-my-website-for-render-blocking-resources%3F) in WebPageTest
+- [Opportunities and experiments](https://product.webpagetest.org/experiments) in WebPageTest
 - [Lighthouse Treemap](https://sia.codes/posts/lighthouse-treemap/)
 - [Lighthouse user flows](https://web.dev/lighthouse-user-flows/)
 - Chrome Dev Tools [recorder panel](https://developer.chrome.com/blog/new-in-devtools-97/#recorder) ([video](https://twitter.com/addyosmani/status/1465221489209319428))
+- Chrome Dev Tools [performance insights panel](https://developer.chrome.com/docs/devtools/performance-insights/)
 
 ---
 
@@ -135,41 +186,6 @@ Note: Most of the energy is consumed by the network and data center, not users' 
 - Many analytics vendors ([Speedcurve](https://www.speedcurve.com/), [Calibre](https://calibreapp.com/))
 - Starting to be bundled in more general analytics/deployment products like [Layer 0](https://www.layer0.co/performance-monitor)
 - [Reporting API](https://developer.mozilla.org/en-US/docs/Web/API/Reporting_API)
-
----
-
-# 📈 Metrics 📈
-
----
-
-> When optimizing for speed, <br>**user experience** should always <br>be your primary metric.
-
----
-
-## User experience
-
-1. When can I see the page? <!-- .element: class="fragment fade-in-then-semi-out" -->
-2. When can I interact with it? <!-- .element: class="fragment fade-in-then-semi-out" -->
-3. Is it delightful? <!-- .element: class="fragment fade-in-then-semi-out" -->
-
----
-
-## Core Web Vitals
-
-<img src="./images/core_web_vitals.png" class="plain">
-
-<small>[Web Vitals](https://web.dev/vitals/), [The Science Behind Web Vitals](https://blog.chromium.org/2020/05/the-science-behind-web-vitals.html)</small>
-
-Note: Target is 75% of loads. "Core Web Vitals are the subset of Web Vitals that apply to all web pages, should be measured by all site owners, and will be surfaced across all Google tools. Each of the Core Web Vitals represents a distinct facet of the user experience, is measurable in the field, and reflects the real-world experience of a critical user-centric outcome." Note modifications over time to improve.
-
----
-
-## New metrics under evaluation
-
-*Provide feedback now!*
-
-- [Smoothness/animation metric](https://web.dev/smoothness/)
-- [Better responsiveness metric](https://web.dev/better-responsiveness-metric/)
 
 ---
 
@@ -253,7 +269,7 @@ Note: AVIF is an extraction from the keyframes of the now popular video format A
 
 <small>[Responsive Doggos Demo](https://projects.sia.codes/responsive-images-demo/)</small>
 
-Note: Raster file formats are really just different compression methods. **SVG**: Can style and animate with CSS or make basic edits in XML. **GIF**: huge file sizes for animation, use video instead. svg or jpg are better for stills. Twitter converts GIF to video.  **PNG**: Use jpg if don't need transparency. **JPG**: much better compression algos.
+Note: Raster file formats are really just different compression methods. **SVG**: Can style and animate with CSS or make basic edits in XML. **GIF**: huge file sizes for animation, use video instead. svg or jpg are better for stills. Twitter converts GIF to video. **PNG**: Use jpg if don't need transparency. **JPG**: much better compression algos.
 
 ---
 
@@ -311,20 +327,23 @@ Note: Furthermore, nowadays most mobile screens are 2x and 3x so we can simplify
 
 ```html
 <picture>
-  <source srcset="./images/sofa_pug_400.avif 400w,
-                  ./images/sofa_pug_800.avif 800w"
-          sizes="(max-width: 320px) 280px, 400px"
-          type="image/avif" />
-  <source srcset="./images/sofa_pug_400.webp 400w,
-                  ./images/sofa_pug_800.webp 800w"
-          sizes="(max-width: 320px) 280px, 400px"
-          type="image/webp" />
-  <img src="./images/sofa_pug_400.jpg"
-        srcset="./images/sofa_pug_400.jpg 400w,
-                ./images/sofa_pug_800.jpg 800w"
-        sizes="(max-width: 320px) 280px, 400px"
-        width="400px"
-        alt="pug on a sofa looking sad" />
+  <source
+    srcset="./images/sofa_pug_400.avif 400w, ./images/sofa_pug_800.avif 800w"
+    sizes="(max-width: 320px) 280px, 400px"
+    type="image/avif"
+  />
+  <source
+    srcset="./images/sofa_pug_400.webp 400w, ./images/sofa_pug_800.webp 800w"
+    sizes="(max-width: 320px) 280px, 400px"
+    type="image/webp"
+  />
+  <img
+    src="./images/sofa_pug_400.jpg"
+    srcset="./images/sofa_pug_400.jpg 400w, ./images/sofa_pug_800.jpg 800w"
+    sizes="(max-width: 320px) 280px, 400px"
+    width="400px"
+    alt="pug on a sofa looking sad"
+  />
 </picture>
 ```
 
@@ -350,7 +369,6 @@ For example, [Cloudinary](https://cloudinary.com/) supports AVIF, and you can op
   - [responsive-loader](https://github.com/herrstucki/responsive-loader)
   - [gatsby-image](https://www.gatsbyjs.org/packages/gatsby-image/) and [gatsby-transformer-sharp](https://image-processing.gatsbyjs.org/)
   - [Eleventy image plugin](https://www.11ty.dev/docs/plugins/image/)
-
 
 Note: (1) Many people have their server hijack the request and serve the best image to minimize markup. Could also use a serverless function. (2) Cost money. (3) So many options - both create your srcset code and process the images
 
@@ -416,10 +434,10 @@ aspect-ratio: 0.5;
 
 ```html
 <!-- Lazy-load offscreen image when user scrolls near -->
-<img src="./hotlanta.jpg" loading="lazy" alt="...">
+<img src="./hotlanta.jpg" loading="lazy" alt="..." />
 
 <!-- Load an image immediately -->
-<img src="./hotlanta.jpg" loading="eager" alt="...">
+<img src="./hotlanta.jpg" loading="eager" alt="..." />
 ```
 
 <small>[addyosmani.com/blog/lazy-loading/](https://addyosmani.com/blog/lazy-loading/)</small>
@@ -444,7 +462,6 @@ Note: It's getting closer! Last time I checked, it was around 60%
 
 ---
 
-
 > Bandwidth is the width of the tube and latency is its length.
 
 <small>[A brief guide to using WebpageTest](https://davidea.st/articles/a-brief-guide-to-webpagetest)</small>
@@ -465,7 +482,6 @@ For large or content-heavy sites like Netflix, bandwidth is critical. For everyo
 
 <small>[What Is TCP Slow Start](https://www.keycdn.com/support/tcp-slow-start)</small>
 
-
 ---
 
 ## 103 Early Hints
@@ -474,12 +490,13 @@ For large or content-heavy sites like Netflix, bandwidth is critical. For everyo
 
 <small>[Early Hints: How Cloudflare Can Improve Website Load Times by 30%](https://blog.cloudflare.com/early-hints/), [Chrome Status: Feature: 103 Early Hints for Navigation](https://www.chromestatus.com/feature/5207422375297024)</small>
 
-
 Note: "the page load could have been accelerated had the browser known, prior to receiving the full response, that the stylesheet and the four subsequent scripts will be needed to render the page. Early Hints avoids these issues by “hinting” (vs. push being dictatorial) to clients which assets they should load, allowing them to prioritize resource loads with more complete information about what they will likely need to render a page, what they have cached, and other heuristics."
 
 ---
 
 <img class="plain" src="./images/Early-hints-diagram-1.png">
+
+<small>https://twitter.com/colinbendell/status/1539322190541295616</small>
 
 ---
 
@@ -487,17 +504,17 @@ Note: "the page load could have been accelerated had the browser known, prior to
 
 ```html
 <!-- Manage in-viewport priorities -->
-<img src="lcp-image.jpg" importance="high">
-<img src="/images/in_viewport_but_not_important.svg" importance="low">
+<img src="lcp-image.jpg" importance="high" />
+<img src="/images/in_viewport_but_not_important.svg" importance="low" />
 <ul class="carousel">
-  <img src="img/carousel-1.jpg" importance="high">
-  <img src="img/carousel-2.jpg" importance="low">
-  <img src="img/carousel-3.jpg" importance="low">
-  <img src="img/carousel-4.jpg" importance="low">
+  <img src="img/carousel-1.jpg" importance="high" />
+  <img src="img/carousel-2.jpg" importance="low" />
+  <img src="img/carousel-3.jpg" importance="low" />
+  <img src="img/carousel-4.jpg" importance="low" />
 </ul>
 
 <!-- Initiate an early fetch for a resource, but also deprioritize it -->
-<link rel="preload" href="/js/script.js" as="script" importance="low">
+<link rel="preload" href="/js/script.js" as="script" importance="low" />
 ```
 
 <small>[Optimizing resource loading with Priority Hints](https://web.dev/priority-hints/)</small>
@@ -551,20 +568,20 @@ Note: true numbers higher https://twitter.com/addyosmani/status/1265677876608655
 
 ```css
 @font-face {
-  font-family: 'Lato';
-  src: url('/static/fonts/Lato.woff2') format('woff2');
+  font-family: "Lato";
+  src: url("/static/fonts/Lato.woff2") format("woff2");
   font-weight: 400;
 }
 
 @font-face {
-    font-family: "Lato-fallback";
-    size-adjust: 97.38%;
-    ascent-override: 99%;
-    src: local("Arial");
+  font-family: "Lato-fallback";
+  size-adjust: 97.38%;
+  ascent-override: 99%;
+  src: local("Arial");
 }
 
 h1 {
-    font-family: Lato, Lato-fallback, sans-serif;
+  font-family: Lato, Lato-fallback, sans-serif;
 }
 ```
 
@@ -605,5 +622,4 @@ Note: “Often the psychology of queuing is more important than the statistics o
 
 <!-- .slide: data-background="./images/hero_bg.jpg" -->
 <h1 class="title dark-background">Thanks!</h1>
-Slides, resources, and more at <a href="https://bit.ly/siaspeaks" class="dark-background">bit.ly/siaspeaks</a>
-
+Slides, resources, and more at <a href="https://sia.codes" class="dark-background">sia.codes</a>
