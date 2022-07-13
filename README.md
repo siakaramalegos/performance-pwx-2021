@@ -7,13 +7,14 @@
 - [Resources](#resources)
 
 ## Abstract
+
 Are you losing revenue to performance? 53% of mobile site visits are abandoned if a page takes longer than 3 seconds to load. Pinterest reduced load times by 40% and saw a 15% increase in sign ups. Starbucks implemented a 2x faster time to interactive resulting in a 65% increase in rewards registrations. AliExpress reduced load by 36% and saw a 10.5% increase in orders.
 
-Performance is important. Tooling can be hard. Do flame charts intimidate you? Come learn about the various tools and metrics for measuring web application performance. We'll also deep-dive into the most common offenders so you can learn how to spot and fix them.  During this talk, you will learn:
+Performance is important. Tooling can be hard. Do flame charts intimidate you? Come learn about the various tools and metrics for measuring web application performance. We'll also deep-dive into the most common offenders so you can learn how to spot and fix them. During this talk, you will learn:
 
 - The difference between lab/synthetic testing and field testing, or real user monitoring
 - Which metrics matter and how they relate to user experience
-- Latency and loading:  HTTP2, code splitting, caching and service workers, resource and priority hints, progressive rendering and lazy loading, third party scripts
+- Latency and loading: HTTP2, code splitting, caching and service workers, resource and priority hints, progressive rendering and lazy loading, third party scripts
 - Reducing code: tree shaking, responsible imports, performance budgets, differential serving
 - Assets: responsive images, font loading, network client hints
 - Perceived performance and UX
@@ -30,7 +31,7 @@ To get the most out of this talk, you should have a working understanding of Jav
 
 ## Slides and Controls
 
-The slides are deployed [here](http://sia.codes/web-performance-long/#/). To advance the slides, use `n` for next and `p` for previous. The right arrow jumps to the next section (and left for previous section). Up and down to advance through slides within a section.
+The slides are deployed [here](https://creative-narwhal-bf6c5f.netlify.app/#/). To advance the slides, use `n` for next and `p` for previous. The right arrow jumps to the next section (and left for previous section). Up and down to advance through slides within a section.
 
 ## Resources
 
